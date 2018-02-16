@@ -1,0 +1,52 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../utility/siren-entity-mixin.html">
+
+<dom-module id="siren-links">
+	<template>
+    <h2>Links</h2>
+    <ul>
+  		<template is="dom-repeat" items={{links}}>
+        <li>
+            <div on-click="_select">{{_getRels(item)}}</div>
+        </li>
+      </template>
+    </ul>
+	</template>
+
+	<script>
+		/* @mixes SirenEntityMixin */
+		class SirenLinks extends SirenEntityMixin(Polymer.Element) {
+
+			static get is() { return 'siren-links'; }
+      static get properties() {
+        return {
+          links: {
+            type: Array,
+            value: []
+          }
+        }
+      }
+      static get observers() {
+        return [
+          '_changed(entity)'
+        ];
+      }
+      _changed(entity){
+        this.links = entity && entity.links || [];
+      }
+      _select(event){
+        const item = event.model.item;
+        this.href = item.href;
+      }
+      _hasLinks() {
+        return this.links.length > 0;
+      }
+      _getRels(item) {
+        return item.rel.join(',');
+      }
+		}
+
+		window.customElements.define(SirenLinks.is, SirenLinks);
+	</script>
+</dom-module>

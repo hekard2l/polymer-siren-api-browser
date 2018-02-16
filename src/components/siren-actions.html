@@ -1,0 +1,71 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../utility/siren-entity-mixin.html">
+
+<link rel="import" href="./siren-action.html">
+
+<dom-module id="siren-actions">
+	<template>
+    <h2>Actions</h2>
+    <paper-toggle-button checked="{{showRaw}}">Show Raw Action</paper-toggle-button>
+    <paper-tabs selected="{{selected}}" scrollable --paper-tabs-selection-bar-color="white">
+      <template is="dom-repeat" items="[[actions]]">
+        <paper-tab>[[item.name]]</paper-tab>
+      </template>
+    </paper-tabs>
+    <iron-pages selected="{{selected}}" select-item="{{selectedAction}}">
+      <template is="dom-repeat" items="{{actions}}">
+        <siren-action action="[[item]]" ></siren-action>
+        <template is="dom-if" if="{{showRaw}}">
+          <pre>
+            {{_rawAction(item)}}
+          </pre>
+        </template>
+
+      </template>
+    </iron-pages>
+  </template>
+
+	<script>
+		/* @mixes SirenEntityMixin */
+		class SirenActions extends SirenEntityMixin(Polymer.Element) {
+
+			static get is() { return 'siren-actions'; }
+      static get properties() {
+        return {
+          actions: {
+            type: Array,
+            value: []
+          },
+          selected: {
+						type: Number,
+						value: 0
+					},
+          showRaw: {
+            type: Boolean,
+            value: false
+          }
+        }
+      }
+      static get observers() {
+        return [
+          '_changed(entity)'
+        ];
+      }
+      _changed(entity){
+        this.actions = entity.actions || [];
+      }
+      _rawAction(item) {
+        return JSON.stringify(item, null, 2);
+      }
+      _toggleShowRaw() {
+        return this.showRaw = !this.showRaw;
+      }
+    }
+
+		window.customElements.define(SirenActions.is, SirenActions);
+	</script>
+</dom-module>

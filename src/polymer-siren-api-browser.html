@@ -1,0 +1,80 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+
+<link rel="import" href="./components/siren-entity.html">
+
+
+<dom-module id="polymer-siren-api-browser">
+  <template>
+    <custom-style>
+      <style is="custom-style" include="paper-styles"></style>
+    </custom-style>
+    <style include="paper-styles">
+      :host {
+        display: block;
+      }
+      .login.form {
+        width:  500px;
+        max-width: 1000px;
+        padding: 1em;
+      }
+    </style>
+    <template is="dom-if" if="{{showLogin}}">
+      <paper-card>
+        <form class="login form">
+          <paper-input placeholder="Siren API url" id="url" value="{{url}}"></paper-input>
+          <paper-input placeholder="Auth token" id="token" value="{{token}}"></paper-input>
+          <paper-button raised class="indego" on-click="_go" value="Go">Go</paper-button>
+        </form>
+      </paper-card>
+    </template>
+    <template is="dom-if" if={{loggedIn}}>
+      <paper-button raised class="indigo" on-click="_login" value="Go">Show Login</paper-button>
+      <siren-entity href="{{url}}" token="{{token}}"></siren-entity>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class PolymerSirenApiBrowser extends Polymer.Element {
+      static get is() { return 'polymer-siren-api-browser'; }
+      static get properties() {
+        return {
+          url: {
+            type: String,
+            value: ''
+          },
+          token: {
+            type: String,
+            value: ''
+          },
+          showLogin: {
+            type: Boolean,
+            value: true
+          },
+          loggedIn: {
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+      _go(){
+        if (this.url !== '') {
+          this.showLogin = false;
+          this.loggedIn = true;
+        }
+      }
+      _login() {
+        this.showLogin = true;
+      }
+    }
+
+    window.customElements.define(PolymerSirenApiBrowser.is, PolymerSirenApiBrowser);
+  </script>
+</dom-module>

@@ -1,0 +1,60 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../utility/siren-entity-mixin.html">
+
+<dom-module id="siren-action">
+<style>
+  :host {
+    display: block;
+  }
+  .form {
+    width:  500px;
+    max-width: 1000px;
+    padding: 1em;
+  }
+  .form .input {
+    padding: .25em ;
+  }
+</style>
+  <template>
+    <h3>Fields</h3>
+    <paper-card>
+      <form class="form">
+    		<template is="dom-repeat" items="{{fields}}">
+    			<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
+    		</template>
+        <paper-button raised class="indigo" on-click="_go" value="Go">Execute</paper-button>
+      </form>
+    </paper-card>
+  </template>
+	<script>
+		class SirenAction extends Polymer.Element {
+
+			static get is() { return 'siren-action'; }
+      static get properties() {
+        return {
+					action: {
+						type: Object,
+						reflectToAttribute: true
+					},
+					fields: {
+						type: Array,
+						value: []
+					}
+        }
+      }
+      static get observers() {
+        return [
+          '_changed(action)'
+        ];
+      }
+      _changed(action){
+        this.fields = action.fields || [];
+      }
+    }
+
+		window.customElements.define(SirenAction.is, SirenAction);
+	</script>
+</dom-module>

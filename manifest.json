@@ -1,0 +1,7 @@
+{
+  "name": "polymer-siren-api-browser",
+  "short_name": "polymer-siren-api-browser",
+  "description": "A Browser for Siren API&#39;s",
+  "start_url": "/",
+  "display": "standalone"
+}

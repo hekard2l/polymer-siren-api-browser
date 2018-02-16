@@ -1,0 +1,16 @@
+{
+  "name": "polymer-siren-api-browser",
+  "description": "A Browser for Siren API&#39;s",
+  "main": "index.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "paper-ui-elements": "PolymerElements/paper-ui-elements",
+    "iron-pages": "^2.0.1",
+    "paper-toggle-button": "^2.0.0",
+    "iron-collapse": "^2.1.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  }
+}

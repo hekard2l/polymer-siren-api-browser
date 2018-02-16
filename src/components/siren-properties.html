@@ -1,0 +1,44 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../utility/siren-entity-mixin.html">
+
+<dom-module id="siren-properties">
+	<template>
+      <h2>Properties</h2>
+  		<pre>{{properties}}</pre>
+	</template>
+
+	<script>
+		/* @mixes SirenEntityMixin */
+		class SirenProperties extends SirenEntityMixin(Polymer.Element) {
+
+			static get is() { return 'siren-properties'; }
+
+      static get properties() {
+        return {
+          properties: {
+            type: String,
+            value: ''
+          }
+        }
+      };
+      static get observers() {
+        return [
+          '_changed(entity)'
+        ];
+      };
+      _changed(entity){
+        this.entity = entity;
+        this.properties = this._getProperties();
+      }
+      _hasProperties() {
+        return this.entity && this.entity.properties;
+      }
+
+      _getProperties() {
+        return this._hasProperties() && JSON.stringify(this.entity.properties, null, 2) || '';
+      }
+		}
+
+		window.customElements.define(SirenProperties.is, SirenProperties);
+	</script>
+</dom-module>

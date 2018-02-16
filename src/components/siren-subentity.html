@@ -1,0 +1,107 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../utility/siren-entity-mixin.html">
+<link rel="import" href="./siren-properties.html">
+<link rel="import" href="./siren-links.html">
+
+<dom-module id="siren-subentity">
+	<template>
+    <div>
+      <h3 on-click="_toggle">{{_getRels(entity)}}</h3>
+      <iron-collapse opened="{{opened}}">
+        <template is="dom-if" if="{{isEmbedded}}">
+          <h2>Properties</h2>
+          <pre>{{properties}}</pre>
+          <h2>Links</h2>
+          <ul>
+        		<template is="dom-repeat" items="{{links}}">
+              <li>
+                  <a on-click="_select">{{_getRels(item)}}</div>
+              </li>
+            </template>
+          </ul>
+          <!--
+            TODO(eknutson): figure out why these dont work...?
+            <siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
+            <siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
+          -->
+        </template>
+        <template is="dom-if" if="{{subEntitySelfLink}}">
+          <paper-button raised class="indigo" on-click="_go">Go<paper-button>
+        </template>
+      </iron-collapse>
+    </div>
+  </template>
+
+	<script>
+		class SirenSubEntity extends Polymer.Element {
+
+			static get is() { return 'siren-subentity'; }
+      static get properties() {
+        return {
+          href: {
+            reflectToAttribute: true,
+            notify: true
+          },
+          entity: {
+            type: Object,
+            value: {}
+          },
+          opened: {
+            type: Boolean,
+            value: false
+          },
+          isEmbedded: {
+            type: Boolean,
+            value: false,
+            computed: '_isEmbedded(entity)'
+          },
+          isEmbeddedLink: {
+            type: Boolean,
+            value: false,
+            computed: '_isEmbeddedLink(entity)'
+          },
+          subEntitySelfLink: {
+            type: String,
+            computed: '_getLinkByRel(entity, "self")'
+          }
+        }
+      };
+      static get observers() {
+        return [
+          '_changed(entity)'
+        ];
+      };
+      _changed(entity){
+        this.entity = entity || {};
+        this.links = this.entity.links || [];
+        this.properties = this.entity.properties && JSON.stringify(this.entity.properties, null, 2)  || ''
+      }
+      _toggle(){
+        this.opened = !this.opened;
+      }
+      _isEmbedded(entity){
+        return !this._isEmbeddedLink(entity);
+      }
+      _isEmbeddedLink(entity){
+        return entity && entity.href;
+      }
+      _getRels(item){
+        return item.rel && JSON.stringify(item.rel) || '';
+      }
+      _getLinkByRel(entity, rel){
+        var link = entity && entity.getLinkByRel(rel);
+        return link && link.href || '';
+      }
+      _select(link){
+        this.href = link.model.item.href || this.href;
+      }
+      _go(){
+        this.href = this.subEntitySelfLink;
+      }
+		}
+
+		window.customElements.define(SirenSubEntity.is, SirenSubEntity);
+	</script>
+</dom-module>
