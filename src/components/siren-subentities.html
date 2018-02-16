@@ -5,7 +5,7 @@
 <dom-module id="siren-subentities">
 	<template>
     <h2>Entities</h2>
-      <ul>
+    <ul>
       <template is="dom-repeat" items="{{entities}}">
         <li>
           <siren-subentity href="{{href}}" entity="{{item}}"></siren-subentity>
@@ -23,7 +23,7 @@
         return {
           entities: {
             type: Array,
-            value: []
+            value: () => []
           }
         }
       };
@@ -33,7 +33,7 @@
         ];
       };
       _changed(entity){
-        this.entities = entity.entities || [];
+        this.splice.apply(this, ['entities', 0, this.entities.length].concat(entity.entities || []));
       }
 		}
 

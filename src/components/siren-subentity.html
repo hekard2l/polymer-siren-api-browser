@@ -21,11 +21,8 @@
               </li>
             </template>
           </ul>
-          <!--
-            TODO(eknutson): figure out why these dont work...?
-            <siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
-            <siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
-          -->
+          <siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
+          <siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
         </template>
         <template is="dom-if" if="{{subEntitySelfLink}}">
           <paper-button raised class="indigo" on-click="_go">Go<paper-button>
@@ -35,11 +32,13 @@
   </template>
 
 	<script>
-		class SirenSubEntity extends Polymer.Element {
+		class SirenSubEntity extends SirenEntityMixin(Polymer.Element) {
 
 			static get is() { return 'siren-subentity'; }
       static get properties() {
         return {
+          properties: Object,
+          links: Object,
           href: {
             reflectToAttribute: true,
             notify: true
@@ -76,7 +75,7 @@
       _changed(entity){
         this.entity = entity || {};
         this.links = this.entity.links || [];
-        this.properties = this.entity.properties && JSON.stringify(this.entity.properties, null, 2)  || ''
+        this.properties = this.entity.properties && JSON.stringify(this.entity.properties, null, 2)  || '';
       }
       _toggle(){
         this.opened = !this.opened;
@@ -91,7 +90,7 @@
         return item.rel && JSON.stringify(item.rel) || '';
       }
       _getLinkByRel(entity, rel){
-        var link = entity && entity.getLinkByRel(rel);
+        var link = entity && entity.getLinkByRel && entity.getLinkByRel(rel);
         return link && link.href || '';
       }
       _select(link){
