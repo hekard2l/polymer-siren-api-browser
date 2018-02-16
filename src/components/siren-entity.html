@@ -9,10 +9,21 @@
 
 <dom-module id="siren-entity">
 	<template>
-    <siren-properties href="{{href}}" token="{{token}}"></siren-properties>
-    <siren-links href="{{href}}" token="{{token}}"></siren-links>
-    <siren-actions href="{{href}}" token="{{token}}"></siren-actions>
-    <siren-subentities href="{{href}}" token="{{token}}"></siren-subentities>
+		<style>
+			:host {
+				display: grid;
+				grid-template-columns: 50% 50%;
+				grid-auto-flow: row;
+			}
+		</style>
+		<div class="column">
+			<siren-properties href="{{href}}" token="{{token}}"></siren-properties>
+			<siren-links href="{{href}}" token="{{token}}"></siren-links>
+			<siren-actions href="{{href}}" token="{{token}}"></siren-actions>
+		</div>
+		<div class="column">
+			<siren-subentities href="{{href}}" token="{{token}}"></siren-subentities>
+		</div>
 	</template>
 
 	<script>
