@@ -1,9 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../utility/siren-entity-mixin.html">
 <link rel="import" href="./siren-properties.html">
 <link rel="import" href="./siren-links.html">
+<link rel="import" href="./siren-classes.html">
+<link rel="import" href="./siren-actions.html">
 
 <dom-module id="siren-subentity">
 	<template>
@@ -11,21 +14,14 @@
       <h3 on-click="_toggle">{{_getRels(entity)}}</h3>
       <iron-collapse opened="{{opened}}">
         <template is="dom-if" if="{{isEmbedded}}">
-          <h2>Properties</h2>
-          <pre>{{properties}}</pre>
-          <h2>Links</h2>
-          <ul>
-        		<template is="dom-repeat" items="{{links}}">
-              <li>
-                  <a on-click="_select">{{_getRels(item)}}</div>
-              </li>
-            </template>
-          </ul>
-          <!--
-            TODO(eknutson): figure out why these dont work...?
-            <siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
-            <siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
-          -->
+					<siren-classes href="{{subEntitySelfLink}}" token="{{token}}"></siren-classes>
+					<siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
+					<siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
+
+					<paper-toggle-button checked="{{showActions}}">Show Actions</paper-toggle-button>
+					<iron-collapse opened="{{showActions}}">
+						<siren-actions href="{{subEntitySelfLink}}" token="{{token}}"></siren-actions>
+					</iron-collapse>
         </template>
         <template is="dom-if" if="{{subEntitySelfLink}}">
           <paper-button raised class="indigo" on-click="_go">Go<paper-button>
@@ -52,6 +48,10 @@
             type: Boolean,
             value: false
           },
+					showActions: {
+						type: Boolean,
+						value: false,
+					},
           isEmbedded: {
             type: Boolean,
             value: false,
@@ -75,12 +75,13 @@
       };
       _changed(entity){
         this.entity = entity || {};
-        this.links = this.entity.links || [];
-        this.properties = this.entity.properties && JSON.stringify(this.entity.properties, null, 2)  || ''
       }
       _toggle(){
         this.opened = !this.opened;
       }
+			_toggleShowActions() {
+				this.showActions = !this.showActions;
+			}
       _isEmbedded(entity){
         return !this._isEmbeddedLink(entity);
       }
