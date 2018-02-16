@@ -48,7 +48,8 @@
         return {
           url: {
             type: String,
-            value: ''
+            value: '',
+            observer: '_urlChanged'
           },
           token: {
             type: String,
@@ -64,6 +65,12 @@
           }
         };
       }
+      _urlChanged(url) {
+        if (window.history.state.url === url) {
+            return;
+        }
+        window.history.pushState({ url }, url);
+      }
       _go(){
         if (this.url !== '') {
           this.showLogin = false;
@@ -72,6 +79,31 @@
       }
       _login() {
         this.showLogin = true;
+      }
+      _onPopstate(event) {
+          const { url } = event.state;
+          if (url) {
+              this.url = url;
+          }
+      }
+
+      constructor() {
+          super();
+          this._boundOnPopstate = this._onPopstate.bind(this);
+      }
+
+      connectedCallback() {
+          if (super.connectedCallback) {
+              super.connectedCallback();
+          }
+          window.addEventListener('popstate', this._boundOnPopstate);
+      }
+
+      disconnectedCallback() {
+          if (super.disconnectedCallback) {
+              super.disconnectedCallback();
+          }
+          window.removeEventListener('popstate', this._boundOnPopstate);
       }
     }
 
