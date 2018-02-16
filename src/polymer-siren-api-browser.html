@@ -48,11 +48,13 @@
         return {
           url: {
             type: String,
-            value: ''
+            observer: '_urlChanged',
+            value: () => sessionStorage.url || ''
           },
           token: {
             type: String,
-            value: ''
+            observer: '_tokenChanged',
+            value: () => sessionStorage.token || ''
           },
           showLogin: {
             type: Boolean,
@@ -70,8 +72,14 @@
           this.loggedIn = true;
         }
       }
-      _login() {
+      _login(){
         this.showLogin = true;
+      }
+      _urlChanged(url){
+        sessionStorage.url = url;
+      }
+      _tokenChanged(token){
+        sessionStorage.token = token;
       }
     }
 
