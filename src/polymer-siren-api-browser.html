@@ -66,7 +66,7 @@
         };
       }
       _urlChanged(url) {
-        if (window.history.state.url === url) {
+        if (window.history.state && window.history.state.url === url) {
             return;
         }
         window.history.pushState({ url }, url);
