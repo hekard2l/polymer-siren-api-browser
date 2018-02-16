@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../utility/siren-entity-mixin.html">
 
+<link rel="import" href="./siren-classes.html">
 <link rel="import" href="./siren-properties.html">
 <link rel="import" href="./siren-links.html">
 <link rel="import" href="./siren-actions.html">
@@ -9,7 +10,8 @@
 
 <dom-module id="siren-entity">
 	<template>
-    <siren-properties href="{{href}}" token="{{token}}"></siren-properties>
+		<siren-classes href="{{href}}" token="{{token}}"></siren-classes>
+		<siren-properties href="{{href}}" token="{{token}}"></siren-properties>
     <siren-links href="{{href}}" token="{{token}}"></siren-links>
     <siren-actions href="{{href}}" token="{{token}}"></siren-actions>
     <siren-subentities href="{{href}}" token="{{token}}"></siren-subentities>
