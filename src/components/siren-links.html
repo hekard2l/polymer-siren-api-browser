@@ -1,17 +1,20 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../utility/siren-entity-mixin.html">
+<link rel="import" href="../styles/shared-styles.html">
 
 <dom-module id="siren-links">
 	<template>
-    <h2>Links</h2>
-    <ul>
-  		<template is="dom-repeat" items={{links}}>
-        <li>
-            <div on-click="_select">{{_getRels(item)}}</div>
-        </li>
-      </template>
-    </ul>
+		<style include="shared-styles">
+		</style>
+	    <h2>Links</h2>
+	    <ul>
+	  		<template is="dom-repeat" items={{links}}>
+	        <li>
+	            <a on-click="_select">{{_getRels(item)}}</a>
+	        </li>
+	      </template>
+	    </ul>
 	</template>
 
 	<script>

@@ -6,15 +6,26 @@
 <link rel="import" href="./siren-links.html">
 <link rel="import" href="./siren-actions.html">
 <link rel="import" href="./siren-subentities.html">
-
+<link rel="import" href="../styles/shared-styles.html">
 
 <dom-module id="siren-entity">
 	<template>
-		<siren-classes href="{{href}}" token="{{token}}"></siren-classes>
-		<siren-properties href="{{href}}" token="{{token}}"></siren-properties>
-    <siren-links href="{{href}}" token="{{token}}"></siren-links>
-    <siren-actions href="{{href}}" token="{{token}}"></siren-actions>
-    <siren-subentities href="{{href}}" token="{{token}}"></siren-subentities>
+		<style include="shared-styles">
+			.left {
+				max-width: 40%;
+			}
+		</style>
+		<div class="flex-parent">
+			<div class="flex-1 left">
+				<siren-classes href="{{href}}" token="{{token}}"></siren-classes>
+				<siren-properties href="{{href}}" token="{{token}}"></siren-properties>
+			    <siren-links href="{{href}}" token="{{token}}"></siren-links>
+				<siren-actions href="{{href}}" token="{{token}}"></siren-actions>
+			</div>
+			<div class="flex-2">
+			    <siren-subentities href="{{href}}" token="{{token}}"></siren-subentities>
+			</div>
+		</div>
 	</template>
 
 	<script>

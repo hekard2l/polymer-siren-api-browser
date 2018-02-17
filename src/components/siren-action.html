@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../utility/siren-action-mixin.html">
+<link rel="import" href="../styles/shared-styles.html">
 
 <dom-module id="siren-action">
 <style>
@@ -18,17 +19,18 @@
     padding: .25em ;
   }
 </style>
-  <template>
-    <h3>Fields</h3>
-    <paper-card>
-      <form class="form">
-		<template is="dom-repeat" items="{{fields}}">
-			<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
-		</template>
-        <paper-button raised class="indigo" on-click="_go" value=>Execute</paper-button>
-      </form>
-    </paper-card>
-  </template>
+	<template>
+		<style include="shared-styles"></style>
+		<h3>Fields</h3>
+		<paper-card>
+			<form class="form">
+			<template is="dom-repeat" items="{{fields}}">
+				<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
+			</template>
+			<paper-button raised class="indigo" on-click="_go" value=>Execute</paper-button>
+			</form>
+		</paper-card>
+	</template>
 	<script>
 	/* @mixes SirenEntityMixin */
 	class SirenAction extends SirenActionMixin(Polymer.Element) {

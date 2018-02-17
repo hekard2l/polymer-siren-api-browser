@@ -2,39 +2,56 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../bower_components/paper-styles/color.html">
+<link rel="import" href="./styles/shared-styles.html">
 
 <link rel="import" href="./components/siren-entity.html">
 
 
 <dom-module id="polymer-siren-api-browser">
   <template>
-    <custom-style>
-      <style is="custom-style" include="paper-styles"></style>
-    </custom-style>
-    <style include="paper-styles">
+    <style include="shared-styles">
       :host {
         display: block;
       }
-      .login.form {
-        width:  500px;
-        max-width: 1000px;
-        padding: 1em;
-      }
+	  .blue {
+		  background-color: #dedede;
+	  }
+	  .input {
+		  width: 40%;
+	  }
+	  .go {
+		  margin-left: auto;
+		  margin-right: auto;
+	  }
+	  app-header {
+		  color: #fff;
+		  background-color: var(--app-primary-color);
+	  }
+
+	  app-header paper-icon-button {
+		  --paper-icon-button-ink-color: white;
+	  }
+
+	  app-toolbar {
+		  background-color: #eaeaea;
+	  }
     </style>
-    <template is="dom-if" if="{{showLogin}}">
-      <paper-card>
-        <form class="login form">
-          <paper-input placeholder="Siren API url" id="url" value="{{url}}"></paper-input>
-          <paper-input placeholder="Auth token" id="token" value="{{token}}"></paper-input>
-          <paper-button raised class="indego" on-click="_go" value="Go">Go</paper-button>
-        </form>
-      </paper-card>
-    </template>
-    <template is="dom-if" if={{loggedIn}}>
-      <paper-button raised class="indigo" on-click="_login" value="Go">Show Login</paper-button>
-      <siren-entity href="{{url}}" token="{{token}}"></siren-entity>
-    </template>
+	<app-header-layout>
+		<app-header condenses reveals effect="waterfall">
+			<app-toolbar>
+				<paper-input placeholder="Siren API url" value="{{url}}" class="input"></paper-input>
+				<paper-input placeholder="Auth token" value="{{token}}" class="input"></paper-input>
+				<paper-toggle-button checked="{{loggedIn}}" disabled="{{hasUrl}}" class="go">Go</paper-toggle-button>
+			</app-toolbar>
+		</app-header>
+		<div class="main">
+			<template is="dom-if" if={{loggedIn}}>
+				<siren-entity href="{{url}}" token="{{token}}"></siren-entity>
+			</template>
+		</div>
+	</app-header-layout>
   </template>
 
   <script>
@@ -43,43 +60,41 @@
      * @polymer
      */
     class PolymerSirenApiBrowser extends Polymer.Element {
-      static get is() { return 'polymer-siren-api-browser'; }
-      static get properties() {
-        return {
-          url: {
-            type: String,
-            value: '',
-            observer: '_urlChanged'
-          },
-          token: {
-            type: String,
-            value: ''
-          },
-          showLogin: {
-            type: Boolean,
-            value: true
-          },
-          loggedIn: {
-            type: Boolean,
-            value: false
-          }
-        };
-      }
+		static get is() { return 'polymer-siren-api-browser'; }
+		static get properties() {
+			return {
+				url: {
+					type: String,
+					value: '',
+					observer: '_urlChanged'
+				},
+				token: {
+					type: String,
+					value: ''
+				},
+				hasUrl: {
+					type: Boolean,
+					value: false
+				},
+				loggedIn: {
+					type: Boolean,
+					value: false
+				}
+			};
+		}
+
       _urlChanged(url) {
+		if (url === '') {
+			this.hasUrl = false;
+			return;
+		}
+		this.hasUrl = true;
         if (window.history.state && window.history.state.url === url) {
             return;
         }
         window.history.pushState({ url }, url);
       }
-      _go(){
-        if (this.url !== '') {
-          this.showLogin = false;
-          this.loggedIn = true;
-        }
-      }
-      _login() {
-        this.showLogin = true;
-      }
+
       _onPopstate(event) {
           const { url } = event.state;
           if (url) {

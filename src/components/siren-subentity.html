@@ -7,28 +7,30 @@
 <link rel="import" href="./siren-links.html">
 <link rel="import" href="./siren-classes.html">
 <link rel="import" href="./siren-actions.html">
+<link rel="import" href="../styles/shared-styles.html">
 
 <dom-module id="siren-subentity">
 	<template>
-    <div>
-      <h3 on-click="_toggle">{{_getRels(entity)}}</h3>
-      <iron-collapse opened="{{opened}}">
-        <template is="dom-if" if="{{isEmbedded}}">
-			<siren-classes href="{{subEntitySelfLink}}" token="{{token}}"></siren-classes>
-			<siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
-			<siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
+		<style include="shared-styles"></style>
+	    <div>
+	      <h3 ><a on-click="_toggle"> {{_getRels(entity)}}</a></h3>
+	      <iron-collapse opened="{{opened}}">
+	        <template is="dom-if" if="{{isEmbedded}}">
+				<siren-classes href="{{subEntitySelfLink}}" token="{{token}}"></siren-classes>
+				<siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
+				<siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
 
-			<paper-toggle-button checked="{{showActions}}">Show Actions</paper-toggle-button>
-			<iron-collapse opened="{{showActions}}">
-				<siren-actions href="{{subEntitySelfLink}}" token="{{token}}"></siren-actions>
-			</iron-collapse>
-        </template>
-        <template is="dom-if" if="{{subEntitySelfLink}}">
-          <paper-button raised class="indigo" on-click="_go">Go<paper-button>
-        </template>
-      </iron-collapse>
-    </div>
-  </template>
+				<paper-toggle-button checked="{{showActions}}">Show Actions</paper-toggle-button>
+				<iron-collapse opened="{{showActions}}">
+					<siren-actions href="{{subEntitySelfLink}}" token="{{token}}"></siren-actions>
+				</iron-collapse>
+	        </template>
+	        <template is="dom-if" if="{{subEntitySelfLink}}">
+	          <paper-button raised class="indigo" on-click="_go">Go<paper-button>
+	        </template>
+	      </iron-collapse>
+	    </div>
+	  </template>
 
 	<script>
 		class SirenSubEntity extends Polymer.Element {
@@ -74,6 +76,7 @@
 				];
 			};
 			_changed(entity){
+				this.opened = false;
 				this.entity = entity || {};
 			}
 			_toggle(){

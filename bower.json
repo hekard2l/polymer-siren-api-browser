@@ -7,7 +7,9 @@
     "paper-ui-elements": "PolymerElements/paper-ui-elements",
     "iron-pages": "^2.0.1",
     "paper-toggle-button": "^2.0.0",
-    "iron-collapse": "^2.1.0"
+    "iron-collapse": "^2.1.0",
+    "paper-header-panel": "^2.0.0",
+    "app-layout": "^2.0.5"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",

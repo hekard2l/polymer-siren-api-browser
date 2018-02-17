@@ -1,0 +1,94 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+
+<!-- shared styles for all views -->
+<dom-module id="shared-styles">
+  <template>
+    <style is="custom-style">
+		.card {
+			margin: 24px;
+			padding: 16px;
+			color: #757575;
+			border-radius: 5px;
+			background-color: #fff;
+			box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+		}
+
+		.circle {
+			display: inline-block;
+			width: 64px;
+			height: 64px;
+			text-align: center;
+			color: #555;
+			border-radius: 50%;
+			background: #ddd;
+			font-size: 30px;
+			line-height: 64px;
+		}
+
+		a:hover {
+			text-underline-position: below;
+			text-decoration: underline;
+			color: cornflowerblue;
+			cursor: pointer;
+		}
+
+		h1 {
+			margin: 16px 0;
+			color: #212121;
+			font-size: 22px;
+		}
+		pre {
+			background: #3e3e3e;
+			color: #fff;
+			word-wrap: break-word;
+			white-space: pre-wrap;
+		}
+		.card-header {
+			background:#006FBF;
+			color:white;
+		}
+
+		.medium-card-size {
+			width: 100%;
+			max-height: 650px;
+			overflow-y: scroll;
+		}
+
+		.card-header-text {
+			margin:0;
+			padding:10px;
+			font-weight:normal;
+		}
+		.pre {
+			width: 100%;
+		}
+		.flex-parent {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.flex-1 {
+			flex: 1;
+			flex-shrink: 1;
+			padding-right: 1em;
+		}
+		.flex-2 {
+			flex: 2;
+			flex-grow: 2
+		}
+		.flex-right {
+			display: inline-block;
+		}
+		.basic-left-padding {
+			padding-left: 10px
+		}
+		.basic-right-padding {
+			padding-left: 10px
+		}
+		.basic-top-bottom-padding {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+</style>
+  </template>
+</dom-module>

@@ -1,10 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../utility/siren-entity-mixin.html">
+<link rel="import" href="../styles/shared-styles.html">
 
 <dom-module id="siren-properties">
 	<template>
-      <h2>Properties</h2>
-  		<pre>{{properties}}</pre>
+		<style include="shared-styles">
+		</style>
+		<h2>Properties</h2>
+		<div class="pre">
+			<pre>{{properties}}</pre>
+		</div>
 	</template>
 
 	<script>
