@@ -2,7 +2,7 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../utility/siren-entity-mixin.html">
+<link rel="import" href="../utility/siren-action-mixin.html">
 
 <dom-module id="siren-action">
 <style>
@@ -22,39 +22,48 @@
     <h3>Fields</h3>
     <paper-card>
       <form class="form">
-    		<template is="dom-repeat" items="{{fields}}">
-    			<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
-    		</template>
-        <paper-button raised class="indigo" on-click="_go" value="Go">Execute</paper-button>
+		<template is="dom-repeat" items="{{fields}}">
+			<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
+		</template>
+        <paper-button raised class="indigo" on-click="_go" value=>Execute</paper-button>
       </form>
     </paper-card>
   </template>
 	<script>
-		class SirenAction extends Polymer.Element {
+	/* @mixes SirenEntityMixin */
+	class SirenAction extends SirenActionMixin(Polymer.Element) {
 
-			static get is() { return 'siren-action'; }
-      static get properties() {
-        return {
-					action: {
-						type: Object,
-						reflectToAttribute: true
-					},
-					fields: {
-						type: Array,
-						value: []
-					}
-        }
-      }
-      static get observers() {
-        return [
-          '_changed(action)'
-        ];
-      }
-      _changed(action){
-        this.fields = action.fields || [];
-      }
-    }
+		static get is() { return 'siren-action'; }
+		static get properties() {
+			return {
+				action: {
+					type: Object,
+					reflectToAttribute: true
+				},
+				fields: {
+					type: Array,
+					value: []
+				}
+			}
+		}
+		static get observers() {
+			return [
+				'_changed(action)'
+			];
+		}
 
-		window.customElements.define(SirenAction.is, SirenAction);
+		_go() {
+			const fieldObjects = this.getSirenFields(this.action);
+			for (const field of this.fields) {
+				fieldObjects.set(field.name, field.value);
+			}
+			this.performSirenAction(this.action, fieldObjects);
+		}
+		_changed(action){
+			this.fields = this.action.fields || [];
+		}
+	}
+
+	window.customElements.define(SirenAction.is, SirenAction);
 	</script>
 </dom-module>
