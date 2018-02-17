@@ -92,6 +92,9 @@
 				return item.rel && JSON.stringify(item.rel) || '';
 			}
 			_getLinkByRel(entity, rel){
+				if (entity.href) {
+					return entity.href;
+				}
 				var link = entity && entity.getLinkByRel(rel);
 				return link && link.href || '';
 			}
