@@ -24,10 +24,13 @@
 				} else {
 					fields = new FormData();
 				}
-				action.fields.forEach(function(field) {
-					// if the field is specified multiple times, assume it is intentional
-					fields.append(field.name, field.value);
-				});
+
+				if (action.fields && action.fields.forEach) {
+						action.fields.forEach(function(field) {
+						// if the field is specified multiple times, assume it is intentional
+						fields.append(field.name, field.value);
+					});
+				}
 				return fields;
 			}
 

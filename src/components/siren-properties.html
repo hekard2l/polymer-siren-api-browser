@@ -4,12 +4,13 @@
 
 <dom-module id="siren-properties">
 	<template>
-		<style include="shared-styles">
-		</style>
-		<h2>Properties</h2>
-		<div class="pre">
-			<pre>{{properties}}</pre>
-		</div>
+		<style include="shared-styles"></style>
+		<template is="dom-if" if="{{hasProperties}}">
+			<h2>Properties</h2>
+			<div class="pre">
+				<pre>{{properties}}</pre>
+			</div>
+		</template>
 	</template>
 
 	<script>
@@ -18,30 +19,34 @@
 
 			static get is() { return 'siren-properties'; }
 
-      static get properties() {
-        return {
-          properties: {
-            type: String,
-            value: ''
-          }
-        }
-      };
-      static get observers() {
-        return [
-          '_changed(entity)'
-        ];
-      };
-      _changed(entity){
-        this.entity = entity;
-        this.properties = this._getProperties();
-      }
-      _hasProperties() {
-        return this.entity && this.entity.properties;
-      }
+			static get properties() {
+				return {
+					properties: {
+						type: String,
+						value: ''
+					},
+					hasProperties: {
+						type: Boolean,
+						computed: '_hasProperties(entity)',
+						value: false
+					}
+				}
+			};
+			static get observers() {
+				return [
+					'_changed(entity)'
+				];
+			};
+			_changed(entity){
+				this.properties = this._getProperties();
+			}
+			_hasProperties(entity) {
+				return entity && entity.properties !== undefined;
+			}
 
-      _getProperties() {
-        return this._hasProperties() && JSON.stringify(this.entity.properties, null, 2) || '';
-      }
+			_getProperties() {
+				return this._hasProperties(this.entity) && JSON.stringify(this.entity.properties, null, 2) || '';
+			}
 		}
 
 		window.customElements.define(SirenProperties.is, SirenProperties);

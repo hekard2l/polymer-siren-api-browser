@@ -35,7 +35,7 @@
 	  }
 
 	  app-toolbar {
-		  background-color: #eaeaea;
+		  background-color: #f5f5f5;
 	  }
     </style>
 	<app-header-layout>
@@ -43,7 +43,7 @@
 			<app-toolbar>
 				<paper-input placeholder="Siren API url" value="{{url}}" class="input"></paper-input>
 				<paper-input placeholder="Auth token" value="{{token}}" class="input"></paper-input>
-				<paper-toggle-button checked="{{loggedIn}}" disabled="{{hasUrl}}" class="go">Go</paper-toggle-button>
+				<paper-toggle-button checked="{{loggedIn}}" disabled="{{disableLogin}}" class="go">Go</paper-toggle-button>
 			</app-toolbar>
 		</app-header>
 		<div class="main">
@@ -72,9 +72,9 @@
 					type: String,
 					value: ''
 				},
-				hasUrl: {
+				disableLogin: {
 					type: Boolean,
-					value: false
+					value: true
 				},
 				loggedIn: {
 					type: Boolean,
@@ -85,10 +85,10 @@
 
       _urlChanged(url) {
 		if (url === '') {
-			this.hasUrl = false;
+			this.disableLogin = true;
 			return;
 		}
-		this.hasUrl = true;
+		this.disableLogin = false;
         if (window.history.state && window.history.state.url === url) {
             return;
         }

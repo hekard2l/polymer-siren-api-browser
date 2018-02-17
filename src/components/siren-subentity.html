@@ -11,26 +11,44 @@
 
 <dom-module id="siren-subentity">
 	<template>
-		<style include="shared-styles"></style>
-	    <div>
-	      <h3 ><a on-click="_toggle"> {{_getRels(entity)}}</a></h3>
-	      <iron-collapse opened="{{opened}}">
-	        <template is="dom-if" if="{{isEmbedded}}">
-				<siren-classes href="{{subEntitySelfLink}}" token="{{token}}"></siren-classes>
-				<siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
-				<siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
+		<style include="shared-styles">
+			.entity {
+				background-color: #fff;
+				padding: 1em;
+			}
+			.accordian {
+				margin-bottom: .2em;
+				text-align: left;
+			}
+			h3 {
+				padding: .2em;
+				padding-left: 1em;
+			}
+			h3:hover {
+				text-decoration: underline;
+			}
+		</style>
+		<div class="pre accordian">
+			<h3 on-click="_toggle">classes: {{_getClasses(entity)}}, rels: {{_getRels(entity)}} </h3>
+			<iron-collapse opened="{{opened}}">
+				<div class="entity">
+					<template is="dom-if" if="{{subEntitySelfLink}}">
+						<siren-classes href="{{subEntitySelfLink}}" token="{{token}}"></siren-classes>
+						<siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
+						<siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
 
-				<paper-toggle-button checked="{{showActions}}">Show Actions</paper-toggle-button>
-				<iron-collapse opened="{{showActions}}">
-					<siren-actions href="{{subEntitySelfLink}}" token="{{token}}"></siren-actions>
-				</iron-collapse>
-	        </template>
-	        <template is="dom-if" if="{{subEntitySelfLink}}">
-	          <paper-button raised class="indigo" on-click="_go">Go<paper-button>
-	        </template>
-	      </iron-collapse>
-	    </div>
-	  </template>
+						<paper-toggle-button checked="{{showActions}}">Show Actions</paper-toggle-button>
+						<iron-collapse opened="{{showActions}}">
+							<siren-actions href="{{subEntitySelfLink}}" token="{{token}}"></siren-actions>
+						</iron-collapse>
+					</template>
+					<template is="dom-if" if="{{subEntitySelfLink}}">
+						<paper-button raised class="indigo" on-click="_go">Go<paper-button>
+					</template>
+				</div>
+			</iron-collapse>
+		</div>
+	</template>
 
 	<script>
 		class SirenSubEntity extends Polymer.Element {
@@ -93,6 +111,9 @@
 			}
 			_getRels(item){
 				return item.rel && JSON.stringify(item.rel) || '';
+			}
+			_getClasses(item){
+				return item.class && JSON.stringify(item.class) || '';
 			}
 			_getLinkByRel(entity, rel){
 				if (entity.href) {

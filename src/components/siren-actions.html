@@ -11,68 +11,87 @@
 <dom-module id="siren-actions">
 	<template>
 		<style include="shared-styles">
-			paper-tabs{
+			paper-tabs {
 				--paper-tabs-selection-bar-color: white;
+				background-color: #f5f5f5;
+			}
+			.selected {
+				border-top: none;
+				border-bottom-left-radius: 4px;
+				border-bottom-right-radius: 4px;
 			}
 		</style>
-	    <h2>Actions</h2>
-	    <paper-toggle-button checked="{{showRaw}}">Show Raw Action</paper-toggle-button>
-	    <paper-tabs selected="{{selected}}" scrollable --paper-tabs-selection-bar-color="white">
-	      <template is="dom-repeat" items="[[actions]]">
-	        <paper-tab>[[item.name]]</paper-tab>
-	      </template>
-	    </paper-tabs>
-	    <iron-pages selected="{{selected}}" select-item="{{selectedAction}}">
-	      <template is="dom-repeat" items="{{actions}}">
-	        <siren-action action="[[item]]" token="{{token}}" ></siren-action>
-	        <template is="dom-if" if="{{showRaw}}">
-	          <pre>
-	            {{_rawAction(item)}}
-	          </pre>
-	        </template>
-
-	      </template>
-	    </iron-pages>
-	  </template>
+		<template is="dom-if" if="{{hasActions}}">
+			<h2>Actions</h2>
+			<paper-toggle-button checked="{{showRaw}}">Show Raw Action</paper-toggle-button>
+			<paper-tabs selected="{{selected}}" scrollable --paper-tabs-selection-bar-color="white" scrollable>
+				<template is="dom-repeat" items="[[actions]]">
+					<paper-tab>[[item.name]]</paper-tab>
+				</template>
+			</paper-tabs>
+			<iron-pages selected="{{selected}}" select-item="{{selectedAction}}" class="selected">
+				<template is="dom-repeat" items="{{actions}}">
+					<div>
+						<siren-action action="{{item}}" token="{{token}}" ></siren-action>
+						<template is="dom-if" if="{{showRaw}}">
+							<div class="pre">
+								<pre>
+									[[_rawAction(item)]]
+								</pre>
+							</div>
+						</template>
+					</div>
+				</template>
+			</iron-pages>
+		</template>
+	</template>
 
 	<script>
 		/* @mixes SirenEntityMixin */
 		class SirenActions extends SirenEntityMixin(Polymer.Element) {
 
 			static get is() { return 'siren-actions'; }
-      static get properties() {
-        return {
-			actions: {
-				type: Array,
-				value: []
-			},
-			selected: {
-				type: Number,
-				value: 0
-			},
-			showRaw: {
-				type: Boolean,
-				value: false
+			static get properties() {
+				return {
+					actions: {
+						type: Array,
+						value: []
+					},
+					selected: {
+						type: Number,
+						value: 0
+					},
+					showRaw: {
+						type: Boolean,
+						value: false
+					},
+					hasActions: {
+						type: Boolean,
+						value: false,
+						computed: '_hasActions(entity)'
+					}
+				}
+			};
+			static get observers() {
+				return [
+					'_changed(entity)'
+				];
 			}
-        }
-      }
-      static get observers() {
-        return [
-          '_changed(entity)'
-        ];
-      }
-      _changed(entity){
-		this.selected = 0;
-		this.showRaw = false;
-		this.actions = entity.actions || [];
-      }
-      _rawAction(item) {
-        return JSON.stringify(item, null, 2);
-      }
-      _toggleShowRaw() {
-        return this.showRaw = !this.showRaw;
-      }
-    }
+			_changed(entity){
+				this.selected = 0;
+				this.showRaw = false;
+				this.actions = entity.actions || [];
+			}
+			_rawAction(item) {
+				return JSON.stringify(item, null, 2);
+			}
+			_toggleShowRaw() {
+				return this.showRaw = !this.showRaw;
+			}
+			_hasActions(entity) {
+				return entity && entity.actions !== undefined;
+			}
+		}
 
 		window.customElements.define(SirenActions.is, SirenActions);
 	</script>

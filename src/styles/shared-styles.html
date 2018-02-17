@@ -5,6 +5,9 @@
 <dom-module id="shared-styles">
   <template>
     <style is="custom-style">
+		.indigo {
+			background-color: #f5f5f5;
+		}
 		.card {
 			margin: 24px;
 			padding: 16px;
@@ -26,23 +29,29 @@
 			line-height: 64px;
 		}
 
+		a {
+			color: cornflowerblue;
+		}
 		a:hover {
 			text-underline-position: below;
 			text-decoration: underline;
-			color: cornflowerblue;
+
 			cursor: pointer;
 		}
 
 		h1 {
 			margin: 16px 0;
-			color: #212121;
+			color: #333;
 			font-size: 22px;
 		}
 		pre {
-			background: #3e3e3e;
-			color: #fff;
 			word-wrap: break-word;
 			white-space: pre-wrap;
+			padding: .5rem;
+		}
+
+		li {
+			list-style-type: none;
 		}
 		.card-header {
 			background:#006FBF;
@@ -62,6 +71,10 @@
 		}
 		.pre {
 			width: 100%;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+			color: #333;
+			background: #f5f5f5;
 		}
 		.flex-parent {
 			display: flex;
@@ -69,12 +82,10 @@
 		}
 		.flex-1 {
 			flex: 1;
-			flex-shrink: 1;
 			padding-right: 1em;
 		}
 		.flex-2 {
 			flex: 2;
-			flex-grow: 2
 		}
 		.flex-right {
 			display: inline-block;

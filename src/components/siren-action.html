@@ -20,14 +20,24 @@
   }
 </style>
 	<template>
-		<style include="shared-styles"></style>
-		<h3>Fields</h3>
+		<style include="shared-styles">
+			paper-card {
+				width: 100%;
+				padding: 1em;
+			}
+			paper-input: {
+				margin-top: .25em;
+			}
+			.right {
+				float: right;
+			}
+		</style>
 		<paper-card>
 			<form class="form">
 			<template is="dom-repeat" items="{{fields}}">
 				<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
 			</template>
-			<paper-button raised class="indigo" on-click="_go" value=>Execute</paper-button>
+			<paper-button raised class="indigo" on-click="_go" class="right">Execute</paper-button>
 			</form>
 		</paper-card>
 	</template>
