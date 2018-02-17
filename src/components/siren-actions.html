@@ -18,7 +18,7 @@
     </paper-tabs>
     <iron-pages selected="{{selected}}" select-item="{{selectedAction}}">
       <template is="dom-repeat" items="{{actions}}">
-        <siren-action action="[[item]]" ></siren-action>
+        <siren-action action="[[item]]" token="{{token}}" ></siren-action>
         <template is="dom-if" if="{{showRaw}}">
           <pre>
             {{_rawAction(item)}}
@@ -36,18 +36,18 @@
 			static get is() { return 'siren-actions'; }
       static get properties() {
         return {
-          actions: {
-            type: Array,
-            value: []
-          },
-          selected: {
-						type: Number,
-						value: 0
-					},
-          showRaw: {
-            type: Boolean,
-            value: false
-          }
+			actions: {
+				type: Array,
+				value: []
+			},
+			selected: {
+				type: Number,
+				value: 0
+			},
+			showRaw: {
+				type: Boolean,
+				value: false
+			}
         }
       }
       static get observers() {

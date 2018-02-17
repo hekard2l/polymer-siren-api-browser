@@ -22,7 +22,7 @@
 					href: {
 						type: String,
 						observer: '_hrefChanged',
-            notify: true,
+            		notify: true,
 						reflectToAttribute: true
 					},
 					token: {
@@ -31,6 +31,10 @@
 					},
 					entity: {
 						type: Object
+					},
+					done: {
+						type: Boolean,
+						value: false
 					}
 				};
 			}
@@ -83,11 +87,13 @@
 			}
 
 			_fetch(href, token) {
+				this.done = false;
 				if (!href || typeof token !== 'string') {
 					return;
 				}
 				var entity = window.D2L.EntityStore.fetch(this.href, token);
 				if (entity.status !== 'fetching') {
+					this.done = true;
 					// Allows class/mixin to override _entityChanged
 					this._entityChanged(entity.entity);
 				}
