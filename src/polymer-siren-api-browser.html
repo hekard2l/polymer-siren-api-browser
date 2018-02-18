@@ -5,9 +5,7 @@
 <link rel="import" href="../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../bower_components/paper-styles/color.html">
 <link rel="import" href="./styles/shared-styles.html">
-
 <link rel="import" href="./components/siren-entity.html">
-
 
 <dom-module id="polymer-siren-api-browser">
   <template>
@@ -82,45 +80,44 @@
 				}
 			};
 		}
-
-      _urlChanged(url) {
-		if (url === '') {
-			this.disableLogin = true;
-			return;
+		_urlChanged(url) {
+			if (url === '') {
+				this.disableLogin = true;
+				return;
+			}
+			this.disableLogin = false;
+			if (window.history.state && window.history.state.url === url) {
+				return;
+			}
+			window.history.pushState({ url }, url);
 		}
-		this.disableLogin = false;
-        if (window.history.state && window.history.state.url === url) {
-            return;
-        }
-        window.history.pushState({ url }, url);
-      }
 
-      _onPopstate(event) {
-          const { url } = event.state;
-          if (url) {
-              this.url = url;
-          }
-      }
+		_onPopstate(event) {
+			const { url } = event.state;
+			if (url) {
+				this.url = url;
+			}
+		}
 
-      constructor() {
-          super();
-          this._boundOnPopstate = this._onPopstate.bind(this);
-      }
+		constructor() {
+			super();
+			this._boundOnPopstate = this._onPopstate.bind(this);
+		}
 
-      connectedCallback() {
-          if (super.connectedCallback) {
-              super.connectedCallback();
-          }
-          window.addEventListener('popstate', this._boundOnPopstate);
-      }
+		connectedCallback() {
+			if (super.connectedCallback) {
+				super.connectedCallback();
+			}
+			window.addEventListener('popstate', this._boundOnPopstate);
+		}
 
-      disconnectedCallback() {
-          if (super.disconnectedCallback) {
-              super.disconnectedCallback();
-          }
-          window.removeEventListener('popstate', this._boundOnPopstate);
-      }
-    }
+		disconnectedCallback() {
+			if (super.disconnectedCallback) {
+				super.disconnectedCallback();
+			}
+			window.removeEventListener('popstate', this._boundOnPopstate);
+		}
+	}
 
     window.customElements.define(PolymerSirenApiBrowser.is, PolymerSirenApiBrowser);
   </script>
