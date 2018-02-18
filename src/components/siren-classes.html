@@ -1,16 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../utility/siren-entity-mixin.html">
-<link rel="import" href="../styles/shared-styles.html">
+<link rel="import" href="./entities/siren-object-links.html">
 
 <dom-module id="siren-classes">
 	<template>
-		<style include="shared-styles"></style>
-		<template is="dom-if" if="{{hasClasses}}">
-			<h2>Classes</h2>
-			<div class="pre">
-				<pre>{{classes}}</pre>
-			</div>
-		</template>
+		<siren-object-classes href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-classes>
 	</template>
 
 	<script>
@@ -18,36 +12,7 @@
 		class SirenClasses extends SirenEntityMixin(Polymer.Element) {
 
 			static get is() { return 'siren-classes'; }
-
-			static get properties() {
-				return {
-					classes: {
-						type: String,
-						value: ''
-					},
-					hasClasses: {
-						type: Boolean,
-						computed: '_hasClasses(entity)',
-						value: false
-					},
-				}
-			};
-			static get observers() {
-				return [
-					'_changed(entity)'
-				];
-			};
-			_changed(entity){
-				this.classes = this._getClasses();
-			}
-			_hasClasses(entity) {
-				return entity && entity.class;
-			}
-			_getClasses() {
-				return this._hasClasses(this.entity) && JSON.stringify(this.entity.class, null, 2) || '';
-			}
 		}
-
 		window.customElements.define(SirenClasses.is, SirenClasses);
 	</script>
 </dom-module>

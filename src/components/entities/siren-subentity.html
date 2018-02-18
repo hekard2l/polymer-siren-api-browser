@@ -1,13 +1,14 @@
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
-<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../utility/siren-entity-mixin.html">
-<link rel="import" href="./siren-properties.html">
-<link rel="import" href="./siren-links.html">
-<link rel="import" href="./siren-classes.html">
-<link rel="import" href="./siren-actions.html">
-<link rel="import" href="../styles/shared-styles.html">
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../utility/siren-entity-mixin.html">
+<link rel="import" href="./siren-object-properties.html">
+<link rel="import" href="./siren-object-links.html">
+<link rel="import" href="./siren-object-classes.html">
+<link rel="import" href="./siren-object-actions.html">
+<link rel="import" href="./siren-object-subentities.html">
+<link rel="import" href="../../styles/shared-styles.html">
 
 <dom-module id="siren-subentity">
 	<template>
@@ -32,16 +33,24 @@
 			<h3 on-click="_toggle">classes: {{_getClasses(entity)}}, rels: {{_getRels(entity)}} </h3>
 			<iron-collapse opened="{{opened}}">
 				<div class="entity">
-					<template is="dom-if" if="{{subEntitySelfLink}}">
-						<siren-classes href="{{subEntitySelfLink}}" token="{{token}}"></siren-classes>
-						<siren-properties href="{{subEntitySelfLink}}" token="{{token}}"></siren-properties>
-						<siren-links href="{{subEntitySelfLink}}" token="{{token}}"></siren-links>
+					<siren-object-classes href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-classes>
+					<siren-object-properties href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-properties>
+					<siren-object-links href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-links>
 
+					<template is="dom-if" if="{{hasActions}}">
 						<paper-toggle-button checked="{{showActions}}">Show Actions</paper-toggle-button>
 						<iron-collapse opened="{{showActions}}">
-							<siren-actions href="{{subEntitySelfLink}}" token="{{token}}"></siren-actions>
+							<siren-object-actions href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-actions>
 						</iron-collapse>
 					</template>
+
+					<template is="dom-if" if="{{hasSubEntities}}">
+						<paper-toggle-button checked="{{showSubEntities}}">Show SubEntities</paper-toggle-button>
+						<iron-collapse opened="{{showSubEntities}}">
+							<siren-object-subentities href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-subentities>
+						</iron-collapse>
+					</template>
+
 					<template is="dom-if" if="{{subEntitySelfLink}}">
 						<paper-button raised class="indigo" on-click="_go">Go<paper-button>
 					</template>
@@ -68,7 +77,21 @@
 						type: Boolean,
 						value: false
 					},
+					hasActions: {
+						type: Boolean,
+						value: false,
+						computed: '_hasActions(entity)'
+					},
 					showActions: {
+						type: Boolean,
+						value: false,
+					},
+					hasSubEntities: {
+						type: Boolean,
+						value: false,
+						computed: '_hasSubEntities(entity)'
+					},
+					showSubEntities: {
 						type: Boolean,
 						value: false,
 					},
@@ -114,6 +137,12 @@
 			}
 			_getClasses(item){
 				return item.class && JSON.stringify(item.class) || '';
+			}
+			_hasActions(entity){
+				return entity && entity.actions && entity.actions.length > 0;
+			}
+			_hasSubEntities(entity){
+				return entity && entity.entities && entity.entities.length > 0;
 			}
 			_getLinkByRel(entity, rel){
 				if (entity.href) {

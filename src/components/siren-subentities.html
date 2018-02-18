@@ -1,44 +1,17 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../utility/siren-entity-mixin.html">
-<link rel="import" href="./siren-subentity.html">
-<link rel="import" href="../styles/shared-styles.html">
+<link rel="import" href="./entities/siren-object-subentities.html">
 
 <dom-module id="siren-subentities">
 	<template>
-		<style include="shared-styles"></style>
-	    <h2>Entities</h2>
-	      <ul>
-	      <template is="dom-repeat" items="{{entities}}">
-	        <li>
-	          <siren-subentity href="{{href}}" token="{{token}}" entity="{{item}}"></siren-subentity>
-	        </li>
-	      </template>
-	    </ul>
+		<siren-object-subentities href="{{href}}" token="{{token}}" entity="{{entity}}" ></siren-object-subentities>
 	</template>
 
 	<script>
 		/* @mixes SirenEntityMixin */
 		class SirenSubEntities extends SirenEntityMixin(Polymer.Element) {
-
 			static get is() { return 'siren-subentities'; }
-      static get properties() {
-        return {
-          entities: {
-            type: Array,
-            value: []
-          }
-        }
-      };
-      static get observers() {
-        return [
-          '_changed(entity)'
-        ];
-      };
-      _changed(entity){
-        this.entities = entity.entities || [];
-      }
 		}
-
 		window.customElements.define(SirenSubEntities.is, SirenSubEntities);
 	</script>
 </dom-module>
