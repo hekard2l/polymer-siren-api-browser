@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "brightspace"],
+  "extends": ["eslint:recommended", "brightspace/polymer-config"],
   "parserOptions": {
     "ecmaVersion": 6
   },
