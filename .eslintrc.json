@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "google"],
+  "extends": ["eslint:recommended", "brightspace"],
   "parserOptions": {
     "ecmaVersion": 6
   },

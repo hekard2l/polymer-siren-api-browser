@@ -32,7 +32,7 @@
 			<iron-pages selected="{{selected}}" select-item="{{selectedAction}}" class="selected">
 				<template is="dom-repeat" items="{{actions}}">
 					<div>
-						<siren-action action="{{item}}" token="{{token}}" ></siren-action>
+						<siren-action action="{{item}}" href="{{href}}" token="{{token}}" ></siren-action>
 						<template is="dom-if" if="{{showRaw}}">
 							<div class="pre">
 								<pre>
@@ -47,46 +47,47 @@
 	</template>
 
 	<script>
-		class SirenObjectActions extends (Polymer.Element) {
-
-			static get is() { return 'siren-object-actions'; }
+		class SirenObjectActions extends(Polymer.Element) {
+			static get is() {
+				return 'siren-object-actions';
+			}
 			static get properties() {
 				return {
 					entity: {
-						type: Object
+						type: Object,
 					},
 					token: {
-						type: String
+						type: String,
 					},
 					href: {
 						type: String,
-						notify: true
+						notify: true,
 					},
 					actions: {
 						type: Array,
-						value: []
+						value: [],
 					},
 					selected: {
 						type: Number,
-						value: 0
+						value: 0,
 					},
 					showRaw: {
 						type: Boolean,
-						value: false
+						value: false,
 					},
 					hasActions: {
 						type: Boolean,
 						value: false,
-						computed: '_hasActions(entity)'
-					}
-				}
-			};
+						computed: '_hasActions(entity)',
+					},
+				};
+			}
 			static get observers() {
 				return [
-					'_changed(entity)'
+					'_changed(entity)',
 				];
 			}
-			_changed(entity){
+			_changed(entity) {
 				this.selected = 0;
 				this.showRaw = false;
 				this.actions = entity.actions || [];
