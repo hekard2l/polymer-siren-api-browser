@@ -73,6 +73,9 @@
 			_go() {
 				const fieldObjects = this.getSirenFields(this.action);
 				for (const field of this.fields) {
+					if (field.value === undefined) {
+						continue;
+					}
 					fieldObjects.set(field.name, field.value);
 				}
 				this.performSirenAction(this.action, fieldObjects);

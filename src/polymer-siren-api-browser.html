@@ -42,6 +42,7 @@
 				<paper-input placeholder="Siren API url" value="{{url}}" class="input"></paper-input>
 				<paper-input placeholder="Auth token" value="{{token}}" class="input"></paper-input>
 				<paper-toggle-button checked="{{loggedIn}}" disabled="{{disableLogin}}" class="go">Go</paper-toggle-button>
+				<paper-button on-click="_clearStore">Clear Store</paper-button>
 			</app-toolbar>
 		</app-header>
 		<div class="main">
@@ -97,6 +98,10 @@
 			if (url) {
 				this.url = url;
 			}
+		}
+
+		_clearStore() {
+			window.D2L.EntityStore._store = new Map();
 		}
 
 		constructor() {
