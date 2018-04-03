@@ -43,8 +43,8 @@
 		</paper-card>
 	</template>
 	<script>
-		/* @mixes SirenActionMixin */
-		class SirenAction extends SirenActionMixin(Polymer.Element) {
+		/* @mixes window.SirenActionMixin */
+		class SirenAction extends window.SirenActionMixin(Polymer.Element) {
 			static get is() {
 				return 'siren-action';
 			}

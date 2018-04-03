@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../utility/siren-entity-mixin.html">
-<link rel="import" href="./entities/siren-object-links.html">
+<link rel="import" href="./entities/siren-object-classes.html">
 
 <dom-module id="siren-classes">
 	<template>
@@ -8,8 +8,8 @@
 	</template>
 
 	<script>
-		/* @mixes SirenEntityMixin */
-		class SirenClasses extends SirenEntityMixin(Polymer.Element) {
+		/* @mixes window.SirenEntityMixin */
+		class SirenClasses extends window.SirenEntityMixin(Polymer.Element) {
 
 			static get is() { return 'siren-classes'; }
 		}

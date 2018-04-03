@@ -8,8 +8,8 @@
 	</template>
 
 	<script>
-		/* @mixes SirenEntityMixin */
-		class SirenSubEntities extends SirenEntityMixin(Polymer.Element) {
+		/* @mixes window.SirenEntityMixin */
+		class SirenSubEntities extends window.SirenEntityMixin(Polymer.Element) {
 			static get is() { return 'siren-subentities'; }
 		}
 		window.customElements.define(SirenSubEntities.is, SirenSubEntities);

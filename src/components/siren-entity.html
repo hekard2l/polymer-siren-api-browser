@@ -32,8 +32,8 @@
 	</template>
 
 	<script>
-		/* @mixes SirenEntityMixin */
-		class SirenEntity extends SirenEntityMixin(Polymer.Element) {
+		/* @mixes window.SirenEntityMixin */
+		class SirenEntity extends window.SirenEntityMixin(Polymer.Element) {
 			static get is() { return 'siren-entity'; }
 			static get properties() {
 				return {

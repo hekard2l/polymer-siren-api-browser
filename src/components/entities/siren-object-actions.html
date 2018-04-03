@@ -29,7 +29,7 @@
 					<paper-tab>[[item.name]]</paper-tab>
 				</template>
 			</paper-tabs>
-			<iron-pages selected="{{selected}}" select-item="{{selectedAction}}" class="selected">
+			<iron-pages selected="{{selected}}" class="selected">
 				<template is="dom-repeat" items="{{actions}}">
 					<div>
 						<siren-action action="{{item}}" href="{{href}}" token="{{token}}" ></siren-action>
