@@ -47,17 +47,17 @@
 						computed: '_hasLinks(entity)',
 						value: false
 					}
-				}
+				};
 			}
 			static get observers() {
 				return [
 					'_changed(entity)'
 				];
 			}
-			_changed(entity){
+			_changed(entity) {
 				this.links = entity && entity.links || [];
 			}
-			_select(event){
+			_select(event) {
 				const item = event.model.item;
 				this.href = item.href;
 			}

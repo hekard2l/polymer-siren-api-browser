@@ -4,7 +4,7 @@
 	/*
 		@polymerMixin
 	*/
-	SirenActionMixin = function(superClass) {
+	window.SirenActionMixin = function(superClass) {
 		return class extends superClass {
 			constructor() {
 				super();
@@ -30,7 +30,7 @@
 				}
 
 				if (action.fields && action.fields.forEach) {
-						action.fields.forEach(function(field) {
+					action.fields.forEach(function(field) {
 						// if the field is specified multiple times, assume it is intentional
 						fields.append(field.name, field.value);
 					});
@@ -76,12 +76,12 @@
 					body: body,
 					headers: headers
 				})
-				.then(function (res) {
-					return res.json();
-				})
-				.then(function(json) {
-					return window.D2L.EntityStore.update(url.href, token, json);
-				});
+					.then(function(res) {
+						return res.json();
+					})
+					.then(function(json) {
+						return window.D2L.EntityStore.update(url.href, token, json);
+					});
 			}
 		};
 	};

@@ -109,52 +109,52 @@
 						type: String,
 						computed: '_getLinkByRel(entity, "self")'
 					}
-				}
-			};
+				};
+			}
 			static get observers() {
 				return [
 					'_changed(entity)'
 				];
-			};
-			_changed(entity){
+			}
+			_changed(entity) {
 				this.opened = false;
 				this.entity = entity || {};
 			}
-			_toggle(){
+			_toggle() {
 				this.opened = !this.opened;
 			}
 			_toggleShowActions() {
 				this.showActions = !this.showActions;
 			}
-			_isEmbedded(entity){
+			_isEmbedded(entity) {
 				return !this._isEmbeddedLink(entity);
 			}
-			_isEmbeddedLink(entity){
+			_isEmbeddedLink(entity) {
 				return entity && entity.href;
 			}
-			_getRels(item){
+			_getRels(item) {
 				return item.rel && JSON.stringify(item.rel) || '';
 			}
-			_getClasses(item){
+			_getClasses(item) {
 				return item.class && JSON.stringify(item.class) || '';
 			}
-			_hasActions(entity){
+			_hasActions(entity) {
 				return entity && entity.actions && entity.actions.length > 0;
 			}
-			_hasSubEntities(entity){
+			_hasSubEntities(entity) {
 				return entity && entity.entities && entity.entities.length > 0;
 			}
-			_getLinkByRel(entity, rel){
+			_getLinkByRel(entity, rel) {
 				if (entity.href) {
 					return entity.href;
 				}
 				var link = entity && entity.getLinkByRel(rel);
 				return link && link.href || '';
 			}
-			_select(link){
+			_select(link) {
 				this.href = link.model.item.href || this.href;
 			}
-			_go(){
+			_go() {
 				this.href = this.subEntitySelfLink;
 			}
 		}

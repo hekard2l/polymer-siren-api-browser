@@ -35,14 +35,14 @@
 						type: String,
 						notify: true
 					},
-				}
-			};
+				};
+			}
 			static get observers() {
 				return [
 					'_changed(entity)'
 				];
-			};
-			_changed(entity){
+			}
+			_changed(entity) {
 				this.entities = entity.entities || [];
 			}
 		}
