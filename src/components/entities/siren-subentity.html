@@ -30,7 +30,12 @@
 			}
 		</style>
 		<div class="pre accordian">
-			<h3 on-click="_toggle">classes: {{_getClasses(entity)}}, rels: {{_getRels(entity)}} </h3>
+			<h3 on-click="_toggle">
+				<template is="dom-if" if="{{entity.title}}">
+					<span>title: {{entity.title}},</span>
+				</template>
+				<span>classes: {{_getClasses(entity)}}, rels: {{_getRels(entity)}}</span>
+			</h3>
 			<iron-collapse opened="{{opened}}">
 				<div class="entity">
 					<siren-object-classes href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-classes>
