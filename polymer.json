@@ -1,7 +1,10 @@
 {
   "lint": {
-    "rules": [
-      "polymer-2"
-    ]
-  }
+    "rules": ["polymer-2"]
+  },
+  "sources": ["src/**/*", "bower.json"],
+  "extraDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/*.js"
+  ]
 }
