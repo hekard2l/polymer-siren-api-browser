@@ -6,21 +6,22 @@
 <link rel="import" href="../../styles/shared-styles.html">
 
 <dom-module id="siren-action">
-<style>
-  :host {
-    display: block;
-  }
-  .form {
-    width:  500px;
-    max-width: 1000px;
-    padding: 1em;
-  }
-  .form .input {
-    padding: .25em ;
-  }
-</style>
 	<template>
 		<style include="shared-styles">
+			:host {
+				display: block;
+			}
+
+			.form {
+				width: 500px;
+				max-width: 1000px;
+				padding: 1em;
+			}
+
+			.form .input {
+				padding: .25em;
+			}
+
 			paper-card {
 				width: 100%;
 				padding: 1em;
@@ -34,47 +35,57 @@
 		</style>
 		<paper-card>
 			<form class="form">
-			<template is="dom-repeat" items="{{fields}}">
-				<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
-			</template>
-			<paper-button raised class="indigo" on-click="_go" class="right">Execute</paper-button>
+	  			<template is="dom-repeat" items="{{fields}}">
+	  				<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
+	  			</template>
+				<paper-button raised class="indigo" on-click="_go" class="right">Execute</paper-button>
 			</form>
 		</paper-card>
 	</template>
 	<script>
-	/* @mixes SirenActionMixin */
-	class SirenAction extends SirenActionMixin(Polymer.Element) {
-		static get is() { return 'siren-action'; }
-		static get properties() {
-			return {
-				action: {
-					type: Object,
-					reflectToAttribute: true
-				},
-				fields: {
-					type: Array,
-					value: []
+		/* @mixes window.SirenActionMixin */
+		class SirenAction extends window.SirenActionMixin(Polymer.Element) {
+			static get is() {
+				return 'siren-action';
+			}
+			static get properties() {
+				return {
+					href: {
+						reflectToAttribute: true,
+						notify: true,
+					},
+					action: {
+						type: Object,
+						reflectToAttribute: true,
+					},
+					fields: {
+						type: Array,
+						value: [],
+					},
+				};
+			}
+			static get observers() {
+				return [
+					'_changed(action)',
+				];
+			}
+
+			_go() {
+				const fieldObjects = this.getSirenFields(this.action);
+				for (const field of this.fields) {
+					if (field.value === undefined) {
+						continue;
+					}
+					fieldObjects.set(field.name, field.value);
 				}
+				this.performSirenAction(this.action, fieldObjects);
+				this.href = this.getEntityUrl(this.action, fieldObjects).href;
+			}
+			_changed(action) {
+				this.fields = action.fields || [];
 			}
 		}
-		static get observers() {
-			return [
-				'_changed(action)'
-			];
-		}
 
-		_go() {
-			const fieldObjects = this.getSirenFields(this.action);
-			for (const field of this.fields) {
-				fieldObjects.set(field.name, field.value);
-			}
-			this.performSirenAction(this.action, fieldObjects);
-		}
-		_changed(action){
-			this.fields = this.action.fields || [];
-		}
-	}
-
-	window.customElements.define(SirenAction.is, SirenAction);
+		window.customElements.define(SirenAction.is, SirenAction);
 	</script>
 </dom-module>

@@ -1,17 +1,18 @@
 {
-  "extends": ["eslint:recommended", "google"],
+  "extends": ["brightspace/polymer-config"],
   "parserOptions": {
     "ecmaVersion": 6
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "plugins": [
     "html"
   ],
   "rules": {
     "brace-style": "off",
-    "new-cap": ["error", { "capIsNewExceptions": ["Polymer"] }],
+    "new-cap": "off",
     "no-var": "off",
     "require-jsdoc": "off"
   },

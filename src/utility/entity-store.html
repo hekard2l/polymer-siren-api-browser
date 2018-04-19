@@ -2,19 +2,6 @@
 
 <script>
 (function() {
-
-
-	// from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
-	function guid() {
-		function s4() {
-			return Math.floor((1 + Math.random()) * 0x10000)
-			.toString(16)
-			.substring(1);
-		}
-		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-			s4() + '-' + s4() + s4() + s4();
-	}
-
 	/*
 		This store is hacked together to develop entity-mixin.
 	*/
@@ -60,9 +47,9 @@
 			if (!entity || bypassCache) {
 				this._store.get(token).set(entityId, { 'status': 'fetching', 'entity': null });
 
-			var headers = new Headers();
-				if(token){
-				    headers.set('Authorization', `Bearer ${token}`);
+				var headers = new Headers();
+				if (token) {
+					headers.set('Authorization', `Bearer ${token}`);
 				}
 
 				if (bypassCache) {
@@ -74,20 +61,20 @@
 					method: 'GET',
 					headers: headers
 				})
-				.then(function(res) {
-					return res.json();
-				})
-				.then(function(json) {
-					this.update(entityId, token, json);
-					if (bypassCache) {
-						for (const listener of this._invalidationListeners) {
-							listener(entityId, token, json);
+					.then(function(res) {
+						return res.json();
+					})
+					.then(function(json) {
+						this.update(entityId, token, json);
+						if (bypassCache) {
+							for (const listener of this._invalidationListeners) {
+								listener(entityId, token, json);
+							}
 						}
-					}
-				}.bind(this))
-				.catch(function(err) {
-					this.setError(entityId, token, err);
-				}.bind(this));
+					}.bind(this))
+					.catch(function(err) {
+						this.setError(entityId, token, err);
+					}.bind(this));
 			}
 
 			return this._store.get(token).get(entityId);

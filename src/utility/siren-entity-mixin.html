@@ -4,12 +4,13 @@
 <script>
 	/*
 		@polymerMixin
-		@mixes EntityMixin
+		@mixes window.EntityMixin
 	*/
-	SirenEntityMixin = function(superClass) {
-		return class extends EntityMixin(superClass) {
+	window.SirenEntityMixin = function(superClass) {
+		return class extends window.EntityMixin(superClass) {
 			_entityChanged(entity) {
 				this.entity = window.D2L.Hypermedia.Siren.Parse(entity);
+				this.loaded = true;
 			}
 
 			// Helper methods that can be used in computed properties

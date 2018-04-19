@@ -38,14 +38,14 @@
 						computed: '_hasProperties(entity)',
 						value: false
 					}
-				}
-			};
+				};
+			}
 			static get observers() {
 				return [
 					'_changed(entity)'
 				];
-			};
-			_changed(entity){
+			}
+			_changed() {
 				this.properties = this._getProperties();
 			}
 			_hasProperties(entity) {

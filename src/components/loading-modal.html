@@ -33,34 +33,34 @@
 	</template>
 
 	<script>
-	class LoadingModal extends Polymer.Element {
-	static get is() {
-		return "loading-modal";
-	}
-	static properties() {
-		return {
-			active: {
-				type: Boolean,
-				value: false,
-				reflectToAttribute: true
-			},
-			classes: {
-				type: String,
-				value: ""
+		class LoadingModal extends Polymer.Element {
+			static get is() { return 'loading-modal'; }
+			static get properties() {
+				return {
+					active: {
+						type: Boolean,
+						value: false,
+						reflectToAttribute: true
+					},
+					classes: {
+						type: String,
+						value: ''
+					}
+				};
 			}
-		};
-	}
-	static get observers() {
-		return ["_updateClasses(active)"];
-	}
-	_updateClasses(active) {
-		this.classes = active ? "modal active" : "modal";
-	}
-	_hide() {
-		this.classes = "modal";
-	}
-}
+			static get observers() {
+				return [
+					'_updateClasses(active)'
+				];
+			}
+			_updateClasses(active) {
+				this.classes = active ? 'modal active' : 'modal';
+			}
+			_hide() {
+				this.classes = "modal";
+			}
+		}
 
-window.customElements.define(LoadingModal.is, LoadingModal);
-</script>
+		window.customElements.define(LoadingModal.is, LoadingModal);
+	</script>
 </dom-module>

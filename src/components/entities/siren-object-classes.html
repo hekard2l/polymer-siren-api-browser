@@ -39,14 +39,14 @@
 						computed: '_hasClasses(entity)',
 						value: false
 					},
-				}
-			};
+				};
+			}
 			static get observers() {
 				return [
 					'_changed(entity)'
 				];
-			};
-			_changed(entity){
+			}
+			_changed() {
 				this.classes = this._getClasses();
 			}
 			_hasClasses(entity) {

@@ -42,6 +42,7 @@
 				<paper-input placeholder="Siren API url" value="{{url}}" class="input"></paper-input>
 				<paper-input placeholder="Auth token" value="{{token}}" class="input"></paper-input>
 				<paper-toggle-button checked="{{loggedIn}}" disabled="{{disableLogin}}" class="go">Go</paper-toggle-button>
+				<paper-button on-click="_clearStore">Clear Store</paper-button>
 			</app-toolbar>
 		</app-header>
 		<div class="main">
@@ -53,11 +54,11 @@
   </template>
 
   <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class PolymerSirenApiBrowser extends Polymer.Element {
+	/**
+	  * @customElement
+	  * @polymer
+	  */
+	class PolymerSirenApiBrowser extends Polymer.Element {
 		static get is() { return 'polymer-siren-api-browser'; }
 		static get properties() {
 			return {
@@ -99,6 +100,10 @@
 			}
 		}
 
+		_clearStore() {
+			window.D2L.EntityStore._store = new Map();
+		}
+
 		constructor() {
 			super();
 			this._boundOnPopstate = this._onPopstate.bind(this);
@@ -119,6 +124,6 @@
 		}
 	}
 
-    window.customElements.define(PolymerSirenApiBrowser.is, PolymerSirenApiBrowser);
+	window.customElements.define(PolymerSirenApiBrowser.is, PolymerSirenApiBrowser);
   </script>
 </dom-module>

@@ -17,9 +17,10 @@
 				max-width: 40%;
 			}
 		</style>
-		<loading-modal active="{{showModal}}"></loading-modal>
+		<loading-modal active="{{!loaded}}"></loading-modal>
 		<div class="flex-parent">
 			<div class="flex-1 left">
+				<h1>{{entity.title}}</h1>
 				<siren-classes href="{{href}}" token="{{token}}"></siren-classes>
 				<siren-properties href="{{href}}" token="{{token}}"></siren-properties>
 			    <siren-links href="{{href}}" token="{{token}}"></siren-links>
@@ -32,29 +33,9 @@
 	</template>
 
 	<script>
-		/* @mixes SirenEntityMixin */
-		class SirenEntity extends SirenEntityMixin(Polymer.Element) {
+		/* @mixes window.SirenEntityMixin */
+		class SirenEntity extends window.SirenEntityMixin(Polymer.Element) {
 			static get is() { return 'siren-entity'; }
-			static get properties() {
-				return {
-					showModal: {
-						type: Boolean,
-						value: false
-					}
-				};
-			}
-			static get observers() {
-				return [
-					'_showModal(href)',
-					'_hideModal(entity)'
-				];
-			}
-			_hideModal(entity){
-				this.showModal = !this.showModal;
-			}
-			_showModal(href){
-				this.showModal = !this.showModal;
-			}
 		}
 
 		window.customElements.define(SirenEntity.is, SirenEntity);
