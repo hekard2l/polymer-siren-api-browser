@@ -4,20 +4,26 @@
   "main": "index.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "paper-ui-elements": "PolymerElements/paper-ui-elements",
+    "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "paper-card": "PolymerElements/paper-card#^2.0.0",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
+    "paper-input": "PolymerElements/paper-input#^2.0.0",
+    "paper-item": "PolymerElements/paper-item#^2.0.0",
+    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
+    "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
     "iron-pages": "^2.0.1",
     "paper-toggle-button": "^2.0.0",
     "iron-collapse": "^2.1.0",
     "paper-header-panel": "^2.0.0",
     "app-layout": "^2.0.5",
-    "app-route": "*"
+    "app-route": "PolymerElements/app-route#^2.1.2"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
   "resolutions": {
-    "polymer": "2.6.0",
-    "webcomponentsjs": "1.1.1"
+    "polymer": "^2.0.0",
+    "webcomponentsjs": "^1.0.0"
   }
 }
