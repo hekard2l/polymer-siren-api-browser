@@ -22,33 +22,33 @@ $_documentContainer.innerHTML = `<dom-module id="siren-object-subentities">
 document.head.appendChild($_documentContainer.content);
 class SirenObjectSubEntities extends PolymerElement {
 
-    static get is() { return 'siren-object-subentities'; }
-    static get properties() {
-				return {
-            entities: {
-                type: Array,
-                value: []
-            },
-            entity: {
-                type: Object
-            },
-            token: {
-                type: String
-            },
-            href: {
-                type: String,
-                notify: true
-            },
-				};
-    }
-    static get observers() {
-				return [
-            '_changed(entity)'
-				];
-    }
-    _changed(entity) {
-				this.entities = entity.entities || [];
-    }
+	static get is() { return 'siren-object-subentities'; }
+	static get properties() {
+		return {
+			entities: {
+				type: Array,
+				value: []
+			},
+			entity: {
+				type: Object
+			},
+			token: {
+				type: String
+			},
+			href: {
+				type: String,
+				notify: true
+			},
+		};
+	}
+	static get observers() {
+		return [
+			'_changed(entity)'
+		];
+	}
+	_changed(entity) {
+		this.entities = entity.entities || [];
+	}
 }
 
 window.customElements.define(SirenObjectSubEntities.is, SirenObjectSubEntities);

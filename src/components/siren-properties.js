@@ -14,7 +14,7 @@ $_documentContainer.innerHTML = `<dom-module id="siren-properties">
 document.head.appendChild($_documentContainer.content);
 /* @mixes window.SirenEntityMixin */
 class SirenProperties extends window.SirenEntityMixin(PolymerElement) {
-    static get is() { return 'siren-properties'; }
+	static get is() { return 'siren-properties'; }
 }
 
 window.customElements.define(SirenProperties.is, SirenProperties);

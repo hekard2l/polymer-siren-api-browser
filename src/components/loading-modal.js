@@ -25,43 +25,43 @@ $_documentContainer.innerHTML = `<dom-module id="loading-modal">
 				margin-right: auto;
 			}
 		</style>
-		<div class\$="[[classes]]" on-click="_hide">
+		<div class="[[classes]]" on-click="_hide">
 			<div class="spinner">
 				<paper-spinner active="" class="thick"></paper-spinner>
 			</div>
 		</div>
 	</template>
 
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
 class LoadingModal extends PolymerElement {
-    static get is() { return 'loading-modal'; }
-    static get properties() {
-				return {
-            active: {
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true
-            },
-            classes: {
-                type: String,
-                value: ''
-            }
-				};
-    }
-    static get observers() {
-				return [
-            '_updateClasses(active)'
-				];
-    }
-    _updateClasses(active) {
-				this.classes = active ? 'modal active' : 'modal';
-    }
-    _hide() {
-				this.classes = "modal";
-    }
+	static get is() { return 'loading-modal'; }
+	static get properties() {
+		return {
+			active: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			classes: {
+				type: String,
+				value: ''
+			}
+		};
+	}
+	static get observers() {
+		return [
+			'_updateClasses(active)'
+		];
+	}
+	_updateClasses(active) {
+		this.classes = active ? 'modal active' : 'modal';
+	}
+	_hide() {
+		this.classes = 'modal';
+	}
 }
 
 window.customElements.define(LoadingModal.is, LoadingModal);

@@ -14,7 +14,7 @@ $_documentContainer.innerHTML = `<dom-module id="siren-links">
 document.head.appendChild($_documentContainer.content);
 /* @mixes window.SirenEntityMixin */
 class SirenLinks extends window.SirenEntityMixin(PolymerElement) {
-    static get is() { return 'siren-links'; }
+	static get is() { return 'siren-links'; }
 }
 
 window.customElements.define(SirenLinks.is, SirenLinks);

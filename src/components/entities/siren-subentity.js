@@ -71,101 +71,101 @@ $_documentContainer.innerHTML = `<dom-module id="siren-subentity">
 document.head.appendChild($_documentContainer.content);
 class SirenSubEntity extends PolymerElement {
 
-    static get is() { return 'siren-subentity'; }
-    static get properties() {
-				return {
-            href: {
-                reflectToAttribute: true,
-                notify: true
-            },
-            entity: {
-                type: Object,
-                value: {}
-            },
-            opened: {
-                type: Boolean,
-                value: false
-            },
-            hasActions: {
-                type: Boolean,
-                value: false,
-                computed: '_hasActions(entity)'
-            },
-            showActions: {
-                type: Boolean,
-                value: false,
-            },
-            hasSubEntities: {
-                type: Boolean,
-                value: false,
-                computed: '_hasSubEntities(entity)'
-            },
-            showSubEntities: {
-                type: Boolean,
-                value: false,
-            },
-            isEmbedded: {
-                type: Boolean,
-                value: false,
-                computed: '_isEmbedded(entity)'
-            },
-            isEmbeddedLink: {
-                type: Boolean,
-                value: false,
-                computed: '_isEmbeddedLink(entity)'
-            },
-            subEntitySelfLink: {
-                type: String,
-                computed: '_getLinkByRel(entity, "self")'
-            }
-				};
-    }
-    static get observers() {
-				return [
-            '_changed(entity)'
-				];
-    }
-    _changed(entity) {
-				this.opened = false;
-				this.entity = entity || {};
-    }
-    _toggle() {
-				this.opened = !this.opened;
-    }
-    _toggleShowActions() {
-				this.showActions = !this.showActions;
-    }
-    _isEmbedded(entity) {
-				return !this._isEmbeddedLink(entity);
-    }
-    _isEmbeddedLink(entity) {
-				return entity && entity.href;
-    }
-    _getRels(item) {
-				return item.rel && JSON.stringify(item.rel) || '';
-    }
-    _getClasses(item) {
-				return item.class && JSON.stringify(item.class) || '';
-    }
-    _hasActions(entity) {
-				return entity && entity.actions && entity.actions.length > 0;
-    }
-    _hasSubEntities(entity) {
-				return entity && entity.entities && entity.entities.length > 0;
-    }
-    _getLinkByRel(entity, rel) {
-				if (entity.href) {
-            return entity.href;
-				}
-				var link = entity && entity.getLinkByRel(rel);
-				return link && link.href || '';
-    }
-    _select(link) {
-				this.href = link.model.item.href || this.href;
-    }
-    _go() {
-				this.href = this.subEntitySelfLink;
-    }
+	static get is() { return 'siren-subentity'; }
+	static get properties() {
+		return {
+			href: {
+				reflectToAttribute: true,
+				notify: true
+			},
+			entity: {
+				type: Object,
+				value: {}
+			},
+			opened: {
+				type: Boolean,
+				value: false
+			},
+			hasActions: {
+				type: Boolean,
+				value: false,
+				computed: '_hasActions(entity)'
+			},
+			showActions: {
+				type: Boolean,
+				value: false,
+			},
+			hasSubEntities: {
+				type: Boolean,
+				value: false,
+				computed: '_hasSubEntities(entity)'
+			},
+			showSubEntities: {
+				type: Boolean,
+				value: false,
+			},
+			isEmbedded: {
+				type: Boolean,
+				value: false,
+				computed: '_isEmbedded(entity)'
+			},
+			isEmbeddedLink: {
+				type: Boolean,
+				value: false,
+				computed: '_isEmbeddedLink(entity)'
+			},
+			subEntitySelfLink: {
+				type: String,
+				computed: '_getLinkByRel(entity, "self")'
+			}
+		};
+	}
+	static get observers() {
+		return [
+			'_changed(entity)'
+		];
+	}
+	_changed(entity) {
+		this.opened = false;
+		this.entity = entity || {};
+	}
+	_toggle() {
+		this.opened = !this.opened;
+	}
+	_toggleShowActions() {
+		this.showActions = !this.showActions;
+	}
+	_isEmbedded(entity) {
+		return !this._isEmbeddedLink(entity);
+	}
+	_isEmbeddedLink(entity) {
+		return entity && entity.href;
+	}
+	_getRels(item) {
+		return item.rel && JSON.stringify(item.rel) || '';
+	}
+	_getClasses(item) {
+		return item.class && JSON.stringify(item.class) || '';
+	}
+	_hasActions(entity) {
+		return entity && entity.actions && entity.actions.length > 0;
+	}
+	_hasSubEntities(entity) {
+		return entity && entity.entities && entity.entities.length > 0;
+	}
+	_getLinkByRel(entity, rel) {
+		if (entity.href) {
+			return entity.href;
+		}
+		var link = entity && entity.getLinkByRel(rel);
+		return link && link.href || '';
+	}
+	_select(link) {
+		this.href = link.model.item.href || this.href;
+	}
+	_go() {
+		this.href = this.subEntitySelfLink;
+	}
 }
 
 window.customElements.define(SirenSubEntity.is, SirenSubEntity);

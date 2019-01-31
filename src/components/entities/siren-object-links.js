@@ -29,48 +29,48 @@ $_documentContainer.innerHTML = `<dom-module id="siren-object-links">
 document.head.appendChild($_documentContainer.content);
 class SirenObjectLinks extends PolymerElement {
 
-    static get is() { return 'siren-object-links'; }
-    static get properties() {
-				return {
-            entity: {
-                type: Object
-            },
-            token: {
-                type: String
-            },
-            href: {
-                type: String,
-                notify: true
-            },
-            links: {
-                type: Array,
-                value: []
-            },
-            hasLinks: {
-                type: Boolean,
-                computed: '_hasLinks(entity)',
-                value: false
-            }
-				};
-    }
-    static get observers() {
-				return [
-            '_changed(entity)'
-				];
-    }
-    _changed(entity) {
-				this.links = entity && entity.links || [];
-    }
-    _select(event) {
-				const item = event.model.item;
-				this.href = item.href;
-    }
-    _hasLinks(entity) {
-				return entity && entity.links && entity.links.length > 0;
-    }
-    _getRels(item) {
-				return item.rel.join(',');
-    }
+	static get is() { return 'siren-object-links'; }
+	static get properties() {
+		return {
+			entity: {
+				type: Object
+			},
+			token: {
+				type: String
+			},
+			href: {
+				type: String,
+				notify: true
+			},
+			links: {
+				type: Array,
+				value: []
+			},
+			hasLinks: {
+				type: Boolean,
+				computed: '_hasLinks(entity)',
+				value: false
+			}
+		};
+	}
+	static get observers() {
+		return [
+			'_changed(entity)'
+		];
+	}
+	_changed(entity) {
+		this.links = entity && entity.links || [];
+	}
+	_select(event) {
+		const item = event.model.item;
+		this.href = item.href;
+	}
+	_hasLinks(entity) {
+		return entity && entity.links && entity.links.length > 0;
+	}
+	_getRels(item) {
+		return item.rel.join(',');
+	}
 }
 
 window.customElements.define(SirenObjectLinks.is, SirenObjectLinks);

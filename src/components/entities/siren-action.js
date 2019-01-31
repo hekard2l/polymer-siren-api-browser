@@ -49,45 +49,45 @@ $_documentContainer.innerHTML = `<dom-module id="siren-action">
 document.head.appendChild($_documentContainer.content);
 /* @mixes window.SirenActionMixin */
 class SirenAction extends window.SirenActionMixin(PolymerElement) {
-    static get is() {
-				return 'siren-action';
-    }
-    static get properties() {
-				return {
-            href: {
-                reflectToAttribute: true,
-                notify: true,
-            },
-            action: {
-                type: Object,
-                reflectToAttribute: true,
-            },
-            fields: {
-                type: Array,
-                value: [],
-            },
-				};
-    }
-    static get observers() {
-				return [
-            '_changed(action)',
-				];
-    }
+	static get is() {
+		return 'siren-action';
+	}
+	static get properties() {
+		return {
+			href: {
+				reflectToAttribute: true,
+				notify: true,
+			},
+			action: {
+				type: Object,
+				reflectToAttribute: true,
+			},
+			fields: {
+				type: Array,
+				value: [],
+			},
+		};
+	}
+	static get observers() {
+		return [
+			'_changed(action)',
+		];
+	}
 
-    _go() {
-				const fieldObjects = this.getSirenFields(this.action);
-				for (const field of this.fields) {
-            if (field.value === undefined) {
-                continue;
-            }
-            fieldObjects.set(field.name, field.value);
-				}
-				this.performSirenAction(this.action, fieldObjects);
-				this.href = this.getEntityUrl(this.action, fieldObjects).href;
-    }
-    _changed(action) {
-				this.fields = action.fields || [];
-    }
+	_go() {
+		const fieldObjects = this.getSirenFields(this.action);
+		for (const field of this.fields) {
+			if (field.value === undefined) {
+				continue;
+			}
+			fieldObjects.set(field.name, field.value);
+		}
+		this.performSirenAction(this.action, fieldObjects);
+		this.href = this.getEntityUrl(this.action, fieldObjects).href;
+	}
+	_changed(action) {
+		this.fields = action.fields || [];
+	}
 }
 
 window.customElements.define(SirenAction.is, SirenAction);

@@ -15,6 +15,6 @@ document.head.appendChild($_documentContainer.content);
 /* @mixes window.SirenEntityMixin */
 class SirenClasses extends window.SirenEntityMixin(PolymerElement) {
 
-    static get is() { return 'siren-classes'; }
+	static get is() { return 'siren-classes'; }
 }
 window.customElements.define(SirenClasses.is, SirenClasses);

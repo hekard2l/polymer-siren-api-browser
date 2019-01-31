@@ -50,59 +50,59 @@ $_documentContainer.innerHTML = `<dom-module id="siren-object-actions">
 
 document.head.appendChild($_documentContainer.content);
 class SirenObjectActions extends (PolymerElement) {
-    static get is() {
-				return 'siren-object-actions';
-    }
-    static get properties() {
-				return {
-            entity: {
-                type: Object,
-            },
-            token: {
-                type: String,
-            },
-            href: {
-                type: String,
-                notify: true,
-            },
-            actions: {
-                type: Array,
-                value: [],
-            },
-            selected: {
-                type: Number,
-                value: 0,
-            },
-            showRaw: {
-                type: Boolean,
-                value: false,
-            },
-            hasActions: {
-                type: Boolean,
-                value: false,
-                computed: '_hasActions(entity)',
-            },
-				};
-    }
-    static get observers() {
-				return [
-            '_changed(entity)',
-				];
-    }
-    _changed(entity) {
-				this.selected = 0;
-				this.showRaw = false;
-				this.actions = entity.actions || [];
-    }
-    _rawAction(item) {
-				return JSON.stringify(item, null, 2);
-    }
-    _toggleShowRaw() {
-				return this.showRaw = !this.showRaw;
-    }
-    _hasActions(entity) {
-				return entity && entity.actions !== undefined;
-    }
+	static get is() {
+		return 'siren-object-actions';
+	}
+	static get properties() {
+		return {
+			entity: {
+				type: Object,
+			},
+			token: {
+				type: String,
+			},
+			href: {
+				type: String,
+				notify: true,
+			},
+			actions: {
+				type: Array,
+				value: [],
+			},
+			selected: {
+				type: Number,
+				value: 0,
+			},
+			showRaw: {
+				type: Boolean,
+				value: false,
+			},
+			hasActions: {
+				type: Boolean,
+				value: false,
+				computed: '_hasActions(entity)',
+			},
+		};
+	}
+	static get observers() {
+		return [
+			'_changed(entity)',
+		];
+	}
+	_changed(entity) {
+		this.selected = 0;
+		this.showRaw = false;
+		this.actions = entity.actions || [];
+	}
+	_rawAction(item) {
+		return JSON.stringify(item, null, 2);
+	}
+	_toggleShowRaw() {
+		return this.showRaw = !this.showRaw;
+	}
+	_hasActions(entity) {
+		return entity && entity.actions !== undefined;
+	}
 }
 
 window.customElements.define(SirenObjectActions.is, SirenObjectActions);

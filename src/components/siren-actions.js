@@ -14,7 +14,7 @@ $_documentContainer.innerHTML = `<dom-module id="siren-actions">
 document.head.appendChild($_documentContainer.content);
 /* @mixes window.SirenEntityMixin */
 class SirenActions extends window.SirenEntityMixin(PolymerElement) {
-    static get is() { return 'siren-actions'; }
+	static get is() { return 'siren-actions'; }
 }
 
 window.customElements.define(SirenActions.is, SirenActions);

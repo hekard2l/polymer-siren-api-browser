@@ -63,69 +63,69 @@ document.head.appendChild($_documentContainer.content);
 		* @polymer
 		*/
 class PolymerSirenApiBrowser extends PolymerElement {
-		static get is() { return 'polymer-siren-api-browser'; }
-		static get properties() {
-        return {
-            url: {
-                type: String,
-                value: '',
-                observer: '_urlChanged'
-            },
-            token: {
-                type: String,
-                value: ''
-            },
-            disableLogin: {
-                type: Boolean,
-                value: true
-            },
-            loggedIn: {
-                type: Boolean,
-                value: false
-            }
-        };
+	static get is() { return 'polymer-siren-api-browser'; }
+	static get properties() {
+		return {
+			url: {
+				type: String,
+				value: '',
+				observer: '_urlChanged'
+			},
+			token: {
+				type: String,
+				value: ''
+			},
+			disableLogin: {
+				type: Boolean,
+				value: true
+			},
+			loggedIn: {
+				type: Boolean,
+				value: false
+			}
+		};
+	}
+	_urlChanged(url) {
+		if (url === '') {
+			this.disableLogin = true;
+			return;
 		}
-		_urlChanged(url) {
-        if (url === '') {
-            this.disableLogin = true;
-            return;
-        }
-        this.disableLogin = false;
-        if (window.history.state && window.history.state.url === url) {
-            return;
-        }
-        window.history.pushState({ url }, url);
+		this.disableLogin = false;
+		if (window.history.state && window.history.state.url === url) {
+			return;
 		}
+		window.history.pushState({ url }, url);
+	}
 
-		_onPopstate(event) {
-        const { url } = event.state;
-        if (url) {
-            this.url = url;
-        }
+	_onPopstate(event) {
+		const { url } = event.state;
+		if (url) {
+			this.url = url;
 		}
+	}
 
-		_clearStore() {
-        window.D2L.EntityStore._store = new Map();
-		}
+	_clearStore() {
+		window.D2L.EntityStore._store = new Map();
+	}
 
-		constructor() {
-        super();
-        this._boundOnPopstate = this._onPopstate.bind(this);
-		}
+	constructor() {
+		super();
+		this._boundOnPopstate = this._onPopstate.bind(this);
+	}
 
-		connectedCallback() {
-        if (super.connectedCallback) {
-            super.connectedCallback();
-        }
-        window.addEventListener('popstate', this._boundOnPopstate);
+	connectedCallback() {
+		if (super.connectedCallback) {
+			super.connectedCallback();
 		}
+		window.addEventListener('popstate', this._boundOnPopstate);
+	}
 
-		disconnectedCallback() {
-        if (super.disconnectedCallback) {
-            super.disconnectedCallback();
-        }
-        window.removeEventListener('popstate', this._boundOnPopstate);
+	disconnectedCallback() {
+		if (super.disconnectedCallback) {
+			super.disconnectedCallback();
 		}
+		window.removeEventListener('popstate', this._boundOnPopstate);
+	}
 }
 
 window.customElements.define(PolymerSirenApiBrowser.is, PolymerSirenApiBrowser);

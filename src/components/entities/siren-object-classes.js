@@ -20,45 +20,45 @@ $_documentContainer.innerHTML = `<dom-module id="siren-object-classes">
 document.head.appendChild($_documentContainer.content);
 class SirenObjectClasses extends PolymerElement {
 
-    static get is() { return 'siren-object-classes'; }
+	static get is() { return 'siren-object-classes'; }
 
-    static get properties() {
-				return {
-            entity: {
-                type: Object
-            },
-            token: {
-                type: String
-            },
-            href: {
-                type: String,
-                notify: true
-            },
-            classes: {
-                type: String,
-                value: ''
-            },
-            hasClasses: {
-                type: Boolean,
-                computed: '_hasClasses(entity)',
-                value: false
-            },
-				};
-    }
-    static get observers() {
-				return [
-            '_changed(entity)'
-				];
-    }
-    _changed() {
-				this.classes = this._getClasses();
-    }
-    _hasClasses(entity) {
-				return entity && entity.class;
-    }
-    _getClasses() {
-				return this._hasClasses(this.entity) && JSON.stringify(this.entity.class, null, 2) || '';
-    }
+	static get properties() {
+		return {
+			entity: {
+				type: Object
+			},
+			token: {
+				type: String
+			},
+			href: {
+				type: String,
+				notify: true
+			},
+			classes: {
+				type: String,
+				value: ''
+			},
+			hasClasses: {
+				type: Boolean,
+				computed: '_hasClasses(entity)',
+				value: false
+			},
+		};
+	}
+	static get observers() {
+		return [
+			'_changed(entity)'
+		];
+	}
+	_changed() {
+		this.classes = this._getClasses();
+	}
+	_hasClasses(entity) {
+		return entity && entity.class;
+	}
+	_getClasses() {
+		return this._hasClasses(this.entity) && JSON.stringify(this.entity.class, null, 2) || '';
+	}
 }
 
 window.customElements.define(SirenObjectClasses.is, SirenObjectClasses);
