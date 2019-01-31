@@ -1,33 +1,29 @@
-# \<polymer-siren-api-browser\>
+# polymer-siren-api-browser
 
-A Browser for Siren API&#39;s
+[Polymer](https://www.polymer-project.org/) based [Hypermedia Siren](https://github.com/kevinswiber/siren) API Browser
 
-## Install the Polymer-CLI
+Supports traversing Siren based APIs using a generic browser
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
-
-## Viewing Your Application
+## Installation
 
 ```
-$ polymer serve
+npm install -g --upgrade polymer-cli
+git clone git@github.com:Brightspace/polymer-siren-api-browser.git
+cd polymer-siren-api-browser
+polymer install
 ```
 
-## Building Your Application
+## Run
 
 ```
-$ polymer build
+polymer serve --open
 ```
 
-This will create builds of your application in the `build/` directory, optimized to be served in production. You can then serve the built versions by giving `polymer serve` a folder to serve from:
+## Development
 
-```
-$ polymer serve build/default
-```
+The project is built with [Polymer 3.x](https://polymer-library.polymer-project.org/3.0/docs/about_30)
 
-## Running Tests
-
+Running tests
 ```
-$ polymer test
+polymer test
 ```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
