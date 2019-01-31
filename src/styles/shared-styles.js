@@ -1,9 +1,9 @@
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+import '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-styles/default-theme.js';
+const $_documentContainer = document.createElement('template');
 
-<!-- shared styles for all views -->
-<dom-module id="shared-styles">
-	<template strip-whitespace>
+$_documentContainer.innerHTML = `<dom-module id="shared-styles">
+	<template strip-whitespace="">
 		<style is="custom-style">
 		.indigo {
 			background-color: #f5f5f5;
@@ -102,4 +102,14 @@
 		}
 </style>
 	</template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
+
+/* shared styles for all views */
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+;
