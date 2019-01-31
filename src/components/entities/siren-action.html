@@ -35,9 +35,9 @@
 		</style>
 		<paper-card>
 			<form class="form">
-	  			<template is="dom-repeat" items="{{fields}}">
-	  				<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
-	  			</template>
+					<template is="dom-repeat" items="{{fields}}">
+						<paper-input class="input" value="{{item.value}}" type="[[item.type]]" label="[[item.name]]" ></paper-input>
+					</template>
 				<paper-button raised class="indigo" on-click="_go" class="right">Execute</paper-button>
 			</form>
 		</paper-card>

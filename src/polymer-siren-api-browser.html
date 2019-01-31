@@ -8,34 +8,34 @@
 <link rel="import" href="./components/siren-entity.html">
 
 <dom-module id="polymer-siren-api-browser">
-  <template strip-whitespace>
-    <style include="shared-styles">
-      :host {
-        display: block;
-      }
-	  .blue {
-		  background-color: #dedede;
-	  }
-	  .input {
-		  width: 40%;
-	  }
-	  .go {
-		  margin-left: auto;
-		  margin-right: auto;
-	  }
-	  app-header {
-		  color: #fff;
-		  background-color: var(--app-primary-color);
-	  }
+	<template strip-whitespace>
+		<style include="shared-styles">
+			:host {
+				display: block;
+			}
+		.blue {
+			background-color: #dedede;
+		}
+		.input {
+			width: 40%;
+		}
+		.go {
+			margin-left: auto;
+			margin-right: auto;
+		}
+		app-header {
+			color: #fff;
+			background-color: var(--app-primary-color);
+		}
 
-	  app-header paper-icon-button {
-		  --paper-icon-button-ink-color: white;
-	  }
+		app-header paper-icon-button {
+			--paper-icon-button-ink-color: white;
+		}
 
-	  app-toolbar {
-		  background-color: #f5f5f5;
-	  }
-    </style>
+		app-toolbar {
+			background-color: #f5f5f5;
+		}
+		</style>
 	<app-header-layout>
 		<app-header condenses reveals effect="waterfall">
 			<app-toolbar>
@@ -51,13 +51,13 @@
 			</template>
 		</div>
 	</app-header-layout>
-  </template>
+	</template>
 
-  <script>
+	<script>
 	/**
-	  * @customElement
-	  * @polymer
-	  */
+		* @customElement
+		* @polymer
+		*/
 	class PolymerSirenApiBrowser extends Polymer.Element {
 		static get is() { return 'polymer-siren-api-browser'; }
 		static get properties() {
@@ -125,5 +125,5 @@
 	}
 
 	window.customElements.define(PolymerSirenApiBrowser.is, PolymerSirenApiBrowser);
-  </script>
+	</script>
 </dom-module>

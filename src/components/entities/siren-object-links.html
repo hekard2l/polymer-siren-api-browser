@@ -11,14 +11,14 @@
 			}
 		</style>
 		<template is="dom-if" if="{{hasLinks}}">
-		    <h2>Links</h2>
-		    <ul>
-		  		<template is="dom-repeat" items={{links}}>
-		        <li>
-		            <a on-click="_select">{{_getRels(item)}}</a>
-		        </li>
-		      </template>
-		    </ul>
+				<h2>Links</h2>
+				<ul>
+					<template is="dom-repeat" items={{links}}>
+						<li>
+								<a on-click="_select">{{_getRels(item)}}</a>
+						</li>
+					</template>
+				</ul>
 		</template>
 	</template>
 
