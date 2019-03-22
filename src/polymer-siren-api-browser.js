@@ -1,130 +1,214 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import '@polymer/iron-a11y-keys/iron-a11y-keys.js';
+import '@polymer/app-route/app-location.js';
 import '@polymer/paper-input/paper-input.js';
+import '@polymer/paper-input/paper-textarea.js';
 import '@polymer/paper-button/paper-button.js';
+import '@polymer/paper-checkbox/paper-checkbox.js';
 import '@polymer/paper-card/paper-card.js';
 import '@polymer/app-layout/app-layout.js';
+import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/paper-styles/color.js';
-import './styles/shared-styles.js';
+import '@polymer/paper-styles/paper-styles.js';
+import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 import './components/siren-entity.js';
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<dom-module id="polymer-siren-api-browser">
-	<template strip-whitespace="">
-		<style include="shared-styles">
+class PolymerSirenApiBrowser extends PolymerElement {
+	static get is() { return 'polymer-siren-api-browser'; }
+	static get template() {
+		return html`
+		<style include="paper-material-styles">
 			:host {
 				display: block;
 			}
-		.blue {
-			background-color: #dedede;
-		}
-		.input {
-			width: 40%;
-		}
-		.go {
-			margin-left: auto;
-			margin-right: auto;
-		}
-		app-header {
-			color: #fff;
-			background-color: var(--app-primary-color);
-		}
-
-		app-header paper-icon-button {
-			--paper-icon-button-ink-color: white;
-		}
-
-		app-toolbar {
-			background-color: #f5f5f5;
-		}
+			:host([hide-entity]) siren-entity {
+				display: none;
+			}
+			app-toolbar {
+				height: 48px;
+				padding: 16px;
+				background: #fff;
+			}
+			app-header {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				--app-header-background-front-layer: {
+					background-color: #fafafa;
+				};
+				--app-header-background-rear-layer: {
+					background-color: #fff;
+				};
+			}
+			paper-input {
+				width: 100%;
+			}
+			paper-button, paper-checkbox {
+				background: var(--default-secondary-color);
+				@apply --paper-font-button;
+			}
+			.options {
+				display: flex;
+				justify-content: start;
+				align-items: center;
+			}
 		</style>
-	<app-header-layout>
-		<app-header condenses="" reveals="" effect="waterfall">
-			<app-toolbar>
-				<paper-input placeholder="Siren API url" value="{{url}}" class="input"></paper-input>
-				<paper-input placeholder="Auth token" value="{{token}}" class="input"></paper-input>
-				<paper-toggle-button checked="{{loggedIn}}" disabled="{{disableLogin}}" class="go">Go</paper-toggle-button>
-				<paper-button on-click="_clearStore">Clear Store</paper-button>
-			</app-toolbar>
-		</app-header>
-		<div class="main">
-			<template is="dom-if" if="{{loggedIn}}">
-				<siren-entity href="{{url}}" token="{{token}}"></siren-entity>
-			</template>
-		</div>
-	</app-header-layout>
-	</template>
-
-	
-</dom-module>`;
-
-document.head.appendChild($_documentContainer.content);
-/**
-		* @customElement
-		* @polymer
-		*/
-class PolymerSirenApiBrowser extends PolymerElement {
-	static get is() { return 'polymer-siren-api-browser'; }
+		<iron-a11y-keys
+			id="a11y"
+			target="[[_computeHeader()]]"
+			keys="enter"
+			on-keys-pressed="_goForceRefresh"></iron-a11y-keys>
+		<app-location route="{{route}}" use-hash-as-path></app-location>
+		<app-header-layout>
+			<app-header id="header" slot="header" fixed condenses effects="waterfall parallax-background">
+				<app-toolbar>
+					<paper-input always-float-label label="Auth token" value="{{token}}"></paper-input>
+				</app-toolbar>
+				<app-toolbar style="height: 0.3rem">
+					<div class="options">
+						<paper-checkbox>Disable Cache</paper-checkbox>
+						<paper-button on-tap="_refresh">Refresh</paper-button>
+						<paper-button on-tap="_clearStore">Clear Cache</paper-button>
+					</div>
+				</app-toolbar>
+				<app-toolbar class="mini">
+					<paper-input always-float-label label="Hypermedia URL" value="{{url}}"></paper-input>
+					<paper-button raised on-tap="_goForceRefresh">Go</paper-button>
+				</app-toolbar>
+			</app-header>
+			<div>
+				<siren-entity
+					id="rootEntity"
+					disable-cache="{{disableCache}}"
+					href="{{entityUrl}}"
+					token="{{token}}"></siren-entity>
+			</div>
+		</app-header-layout>`;
+	}
 	static get properties() {
 		return {
+			route: Object,
 			url: {
 				type: String,
-				value: '',
-				observer: '_urlChanged'
+				value: ''
 			},
 			token: {
 				type: String,
 				value: ''
 			},
-			disableLogin: {
-				type: Boolean,
-				value: true
+			entityUrl: {
+				type: String,
+				observer: '_entityUrlChanged'
 			},
-			loggedIn: {
+			disableCache: {
 				type: Boolean,
 				value: false
+			},
+			hideEntity: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: true,
+				computed: '_computeHideEntity(entityUrl)'
 			}
 		};
 	}
-	_urlChanged(url) {
-		if (url === '') {
-			this.disableLogin = true;
-			return;
-		}
-		this.disableLogin = false;
-		if (window.history.state && window.history.state.url === url) {
-			return;
-		}
-		window.history.pushState({ url }, url);
+
+	static get observers() {
+		return [
+			'_routeChanged(route.hash, route.path)'
+		];
 	}
 
-	_onPopstate(event) {
-		const { url } = event.state;
-		if (url) {
-			this.url = url;
+	ready() {
+		super.ready();
+		const { url, token } = this._appState(this._hash());
+		this.url = url || '';
+		this.token = token || '';
+	}
+
+	_go(forceRefresh) {
+		const newUrl = this.url;
+		const newToken = this.token;
+		const { url, token } = this._appState(this._hash());
+		if (forceRefresh || (newUrl !== '' && newUrl !== url && newToken !== token)) {
+			this._updateLocationHash(newUrl, newToken);
+			this.entityUrl = newUrl;
 		}
+	}
+
+	_goForceRefresh() {
+		return this._go(true);
+	}
+
+	_appState(search) {
+		try {
+			if (search.replace(/\s+/, '') !== '') {
+				const raw = atob(search);
+				const { url, token } = JSON.parse(raw);
+				return { url, token };
+			} else {
+				return {};
+			}
+		} catch (err) {
+			window.location.hash = '';
+			console.error(err.stack);
+			return {};
+		}
+	}
+
+	_refresh() {
+		this.$.rootEntity.forceRefresh();
 	}
 
 	_clearStore() {
 		window.D2L.EntityStore._store = new Map();
 	}
 
-	constructor() {
-		super();
-		this._boundOnPopstate = this._onPopstate.bind(this);
+	_entityUrlChanged(entityUrl) {
+		this._updateLocationHash(entityUrl, this.token);
+		this.url = entityUrl;
 	}
 
-	connectedCallback() {
-		if (super.connectedCallback) {
-			super.connectedCallback();
+	_updateLocationHash(newUrl, newToken) {
+		const path = btoa(JSON.stringify({
+			url: newUrl,
+			token: newToken
+		}));
+		const hash = '#' + path;
+		const hasStateAlready = window.history.state &&
+			window.history.state.hash === hash;
+		if (!hasStateAlready) {
+			window.history.pushState({ hash }, '', hash);
 		}
-		window.addEventListener('popstate', this._boundOnPopstate);
 	}
 
-	disconnectedCallback() {
-		if (super.disconnectedCallback) {
-			super.disconnectedCallback();
+	_hash() {
+		if (!this.route) {
+			return '';
 		}
-		window.removeEventListener('popstate', this._boundOnPopstate);
+		return this.route.hash || this.route.path;
+	}
+
+	_routeChanged(hash, path) {
+		try {
+			const { url, token } = this._appState(hash || path);
+			this.url = url;
+			this.token = token;
+			this.entityUrl = this.url;
+		} catch (err) {
+			console.error(err.stack);
+		}
+	}
+
+	_computerHeader() {
+		if (!this.$) {
+			return undefined;
+		}
+		return this.$.header;
+	}
+
+	_computeHideEntity(entityUrl) {
+		return !entityUrl;
 	}
 }
 

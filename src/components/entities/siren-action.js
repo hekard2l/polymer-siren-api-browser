@@ -6,8 +6,8 @@ import '../../utility/siren-action-mixin.js';
 import '../../styles/shared-styles.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="siren-action">
-	<template strip-whitespace="">
+$_documentContainer.innerHTML = /*html*/`<dom-module id="siren-action">
+	<template strip-whitespace>
 		<style include="shared-styles">
 			:host {
 				display: block;
@@ -43,7 +43,7 @@ $_documentContainer.innerHTML = `<dom-module id="siren-action">
 			</form>
 		</paper-card>
 	</template>
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);

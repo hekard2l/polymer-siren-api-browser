@@ -1,11 +1,12 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-styles/paper-styles.js';
 import '../../utility/siren-entity-mixin.js';
 import '../../styles/shared-styles.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="siren-object-classes">
-	<template strip-whitespace="">
-		<style include="shared-styles"></style>
+$_documentContainer.innerHTML = /*html*/`<dom-module id="siren-object-classes">
+	<template strip-whitespace>
+		<style include="shared-styles paper-material-styles"></style>
 		<template is="dom-if" if="{{hasClasses}}">
 			<h2>Classes</h2>
 			<div class="pre">
@@ -14,7 +15,7 @@ $_documentContainer.innerHTML = `<dom-module id="siren-object-classes">
 		</template>
 	</template>
 
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);

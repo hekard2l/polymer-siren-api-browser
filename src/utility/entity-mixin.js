@@ -33,6 +33,10 @@ window.EntityMixin = function(superClass) {
 				loaded: {
 					type: Boolean,
 					value: false
+				},
+				disableCache: {
+					type: Boolean,
+					value: false
 				}
 			};
 		}
@@ -56,6 +60,11 @@ window.EntityMixin = function(superClass) {
 			if (this.href && typeof this.token === 'string') {
 				window.D2L.EntityStore.removeListener(this.href, this.token, this._entityChanged);
 			}
+		}
+
+		forceRefresh() {
+			this.loaded = false;
+			return this._fetch(this.href, this.token, true);
 		}
 
 		_hrefChanged(href, oldhref) {
@@ -86,11 +95,15 @@ window.EntityMixin = function(superClass) {
 			this.loaded = false;
 		}
 
-		_fetch(href, token) {
+		_fetch(href, token, bypassCache) {
 			if (!href || typeof token !== 'string') {
 				return;
 			}
-			var entity = window.D2L.EntityStore.fetch(this.href, token);
+			var entity = window.D2L.EntityStore.fetch(
+				this.href,
+				token,
+				bypassCache || this.disableCache
+			);
 			if (entity.status !== 'fetching') {
 				// Allows class/mixin to override _entityChanged
 				this._entityChanged(entity.entity);

@@ -3,8 +3,8 @@ import './siren-subentity.js';
 import '../../styles/shared-styles.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="siren-object-subentities">
-	<template strip-whitespace="">
+$_documentContainer.innerHTML = /*html*/`<dom-module id="siren-object-subentities">
+	<template strip-whitespace>
 		<style include="shared-styles"></style>
 			<h2>Entities</h2>
 				<ul>
@@ -16,7 +16,7 @@ $_documentContainer.innerHTML = `<dom-module id="siren-object-subentities">
 			</ul>
 	</template>
 
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);

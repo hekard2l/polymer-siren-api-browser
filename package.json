@@ -3,6 +3,9 @@
   "name": "polymer-siren-api-browser",
   "license": "MIT",
   "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint ."
+  },
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -11,20 +14,22 @@
   },
   "main": "index.js",
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
+    "@polymer/app-layout": "^3.0.0",
+    "@polymer/app-route": "^3.0.2",
+    "@polymer/iron-a11y-keys": "^3.0.1",
+    "@polymer/iron-collapse": "^3.0.0",
+    "@polymer/iron-pages": "^3.0.0",
     "@polymer/paper-button": "^3.0.0",
     "@polymer/paper-card": "^3.0.0",
+    "@polymer/paper-checkbox": "^3.1.0",
+    "@polymer/paper-header-panel": "^3.0.0",
     "@polymer/paper-icon-button": "^3.0.0",
     "@polymer/paper-input": "^3.0.0",
     "@polymer/paper-item": "^3.0.0",
     "@polymer/paper-spinner": "^3.0.0",
     "@polymer/paper-tabs": "^3.0.0",
-    "@polymer/iron-pages": "^3.0.0",
     "@polymer/paper-toggle-button": "^3.0.0",
-    "@polymer/iron-collapse": "^3.0.0",
-    "@polymer/paper-header-panel": "^3.0.0",
-    "@polymer/app-layout": "^3.0.0",
-    "@polymer/app-route": "^3.0.0"
+    "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.0.0",

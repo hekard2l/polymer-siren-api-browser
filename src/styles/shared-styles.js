@@ -2,8 +2,8 @@ import '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-styles/default-theme.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="shared-styles">
-	<template strip-whitespace="">
+$_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
+	<template strip-whitespace>
 		<style is="custom-style">
 		.indigo {
 			background-color: #f5f5f5;
@@ -105,11 +105,3 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
-
-/* shared styles for all views */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
-
