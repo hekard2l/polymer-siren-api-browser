@@ -2,8 +2,8 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-spinner/paper-spinner.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="loading-modal">
-	<template strip-whitespace="">
+$_documentContainer.innerHTML = /*html*/`<dom-module id="loading-modal">
+	<template strip-whitespace>
 		<style>
 			.modal {
 					display: none;
@@ -27,7 +27,7 @@ $_documentContainer.innerHTML = `<dom-module id="loading-modal">
 		</style>
 		<div class="[[classes]]" on-click="_hide">
 			<div class="spinner">
-				<paper-spinner active="" class="thick"></paper-spinner>
+				<paper-spinner active=[[active]] class="thick"></paper-spinner>
 			</div>
 		</div>
 	</template>
@@ -42,8 +42,7 @@ class LoadingModal extends PolymerElement {
 		return {
 			active: {
 				type: Boolean,
-				value: false,
-				reflectToAttribute: true
+				value: false
 			},
 			classes: {
 				type: String,

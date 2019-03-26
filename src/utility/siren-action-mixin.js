@@ -10,6 +10,14 @@ window.SirenActionMixin = function(superClass) {
 
 		static get properties() {
 			return {
+				disableCache: {
+					type: Boolean,
+					value: false
+				},
+				loaded: {
+					type: Boolean,
+					value: false
+				},
 				token: {
 					type: String
 				}
@@ -85,16 +93,22 @@ window.SirenActionMixin = function(superClass) {
 
 			var token = this.token;
 
+			this.loaded = false;
 			return fetch(url.href, {
 				method: action.method,
 				body: body,
 				headers: headers
 			})
-				.then(function(res) {
+				.then((res) => {
 					return res.json();
 				})
-				.then(function(json) {
-					return window.D2L.EntityStore.update(url.href, token, json);
+				.then((json) => {
+					this.loaded = true;
+					if (this.disableCache) {
+						return json;
+					} else {
+						return window.D2L.EntityStore.update(url.href, token, json);
+					}
 				});
 		}
 	};

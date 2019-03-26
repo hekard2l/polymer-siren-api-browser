@@ -1,4 +1,5 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-styles/paper-styles.js';
 import '../utility/siren-entity-mixin.js';
 import './siren-classes.js';
 import './siren-properties.js';
@@ -9,9 +10,9 @@ import '../styles/shared-styles.js';
 import './loading-modal.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="siren-entity">
-	<template strip-whitespace="">
-		<style include="shared-styles">
+$_documentContainer.innerHTML = /*html*/`<dom-module id="siren-entity">
+	<template strip-whitespace>
+		<style include="shared-styles paper-material-styles">
 			.left {
 				max-width: 40%;
 			}
