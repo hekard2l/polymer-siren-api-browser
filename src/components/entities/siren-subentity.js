@@ -19,25 +19,18 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-subentity">
 				background-color: #fff;
 				padding: 1em;
 			}
-			.accordian {
-				margin-bottom: .2em;
-				text-align: left;
-			}
-			h3 {
-				padding: .2em;
-				padding-left: 1em;
-			}
-			h3:hover {
-				text-decoration: underline;
-			}
 		</style>
 		<div class="pre accordian">
-			<h3 on-click="_toggle">
-				<template is="dom-if" if="{{entity.title}}">
-					<span>title: {{entity.title}},</span>
-				</template>
-				<span>classes: {{_getClasses(entity)}}, rels: {{_getRels(entity)}}</span>
-			</h3>
+			<div class="accordian-header" on-click="_toggle">
+				<h3>
+					<template is="dom-if" if="{{entity.title}}">
+						<span>title: {{entity.title}},</span>
+					</template>
+					<span hidden$="{{!opened}}">-&nbsp;</span>
+					<span hidden$="{{opened}}">+&nbsp;</span>
+					<span>classes: {{_getClasses(entity)}}, rels: {{_getRels(entity)}}</span>
+				</h3>
+			</div>
 			<iron-collapse opened="{{opened}}">
 				<div class="entity">
 					<siren-object-classes href="{{href}}" token="{{token}}" entity="{{entity}}"></siren-object-classes>
