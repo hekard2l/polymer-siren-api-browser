@@ -6,14 +6,14 @@ const $_documentContainer = document.createElement('template');
 $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-object-subentities">
 	<template strip-whitespace>
 		<style include="shared-styles"></style>
-			<h2>Entities</h2>
-				<ul>
-				<template is="dom-repeat" items="{{entities}}">
-					<li>
-						<siren-subentity href="{{href}}" entity="{{item}}"></siren-subentity>
-					</li>
-				</template>
-			</ul>
+		<h2>Entities</h2>
+		<ul>
+			<template is="dom-repeat" items="{{entities}}">
+				<li>
+					<siren-subentity href="{{href}}" entity="{{item}}"></siren-subentity>
+				</li>
+			</template>
+		</ul>
 	</template>
 
 

@@ -1,10 +1,19 @@
 import '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-styles/default-theme.js';
+import '@polymer/paper-styles/paper-styles.js';
+import '@polymer/paper-styles/color.js';
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
 	<template strip-whitespace>
-		<style is="custom-style">
+		<style is="custom-style" include="paper-material-styles">
+		paper-button, paper-checkbox {
+			background: var(--default-secondary-color);
+			@apply --paper-font-button;
+		}
+		h2, h3, h4 {
+			@apply --paper-font-title;
+		}
 		[hidden] {
 			display: none;
 		}
@@ -50,11 +59,12 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
 		pre {
 			word-wrap: break-word;
 			white-space: pre-wrap;
-			padding: .5rem;
+			margin: 0.25rem 0.25rem;
 		}
 
-		li {
+		ul {
 			list-style-type: none;
+			padding-left: 0;
 		}
 		.card-header {
 			background:#006FBF;
@@ -77,7 +87,6 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
 			border-radius: 4px;
 			border: 1px solid #ccc;
 			color: #333;
-			background: #f5f5f5;
 		}
 		.flex-parent {
 			display: flex;
