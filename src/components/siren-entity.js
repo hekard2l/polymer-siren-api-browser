@@ -1,23 +1,24 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import '@polymer/paper-styles/paper-styles.js';
 import '../utility/siren-entity-mixin.js';
 import './siren-classes.js';
 import './siren-properties.js';
 import './siren-links.js';
 import './siren-actions.js';
 import './siren-subentities.js';
+import './siren-rawentity.js';
 import '../styles/shared-styles.js';
 import './loading-modal.js';
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-entity">
 	<template strip-whitespace>
-		<style include="shared-styles paper-material-styles">
+		<style include="shared-styles">
 			.left {
 				max-width: 40%;
 			}
 		</style>
 		<loading-modal active="{{!loaded}}"></loading-modal>
+		<siren-rawentity href="{{href}}" token="{{token}}"></siren-rawentity>
 		<div class="flex-parent">
 			<div class="flex-1 left">
 				<h1>{{entity.title}}</h1>
@@ -32,7 +33,7 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-entity">
 		</div>
 	</template>
 
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);

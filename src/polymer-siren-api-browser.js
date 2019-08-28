@@ -8,15 +8,15 @@ import '@polymer/paper-checkbox/paper-checkbox.js';
 import '@polymer/paper-card/paper-card.js';
 import '@polymer/app-layout/app-layout.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import '@polymer/paper-styles/color.js';
-import '@polymer/paper-styles/paper-styles.js';
 import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 import './components/siren-entity.js';
+import './styles/shared-styles.js';
+
 class PolymerSirenApiBrowser extends PolymerElement {
 	static get is() { return 'polymer-siren-api-browser'; }
 	static get template() {
 		return html`
-		<style include="paper-material-styles">
+		<style include="shared-styles">
 			:host {
 				display: block;
 			}
@@ -43,10 +43,6 @@ class PolymerSirenApiBrowser extends PolymerElement {
 			paper-input {
 				width: 100%;
 			}
-			paper-button, paper-checkbox {
-				background: var(--default-secondary-color);
-				@apply --paper-font-button;
-			}
 			.options {
 				display: flex;
 				justify-content: start;
@@ -67,8 +63,8 @@ class PolymerSirenApiBrowser extends PolymerElement {
 				<app-toolbar style="height: 0.3rem">
 					<div class="options">
 						<paper-checkbox>Disable Cache</paper-checkbox>
-						<paper-button on-tap="_refresh">Refresh</paper-button>
-						<paper-button on-tap="_clearStore">Clear Cache</paper-button>
+						<paper-button small on-tap="_refresh">Refresh</paper-button>
+						<paper-button small on-tap="_clearStore">Clear Cache</paper-button>
 					</div>
 				</app-toolbar>
 				<app-toolbar class="mini">

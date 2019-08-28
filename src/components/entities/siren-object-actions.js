@@ -1,17 +1,17 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import '@polymer/paper-styles/paper-styles.js';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/paper-toggle-button/paper-toggle-button.js';
 import '../../utility/siren-entity-mixin.js';
 import '../../styles/shared-styles.js';
+import '../pre-json.js';
 import './siren-action.js';
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-object-actions">
 	<template strip-whitespace>
-		<style include="shared-styles paper-material-styles">
+		<style include="shared-styles">
 			paper-tabs {
 				--paper-tabs-selection-bar-color: white;
 				background-color: #f5f5f5;
@@ -36,7 +36,7 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-object-actions">
 						<siren-action action="{{item}}" href="{{href}}" token="{{token}}"></siren-action>
 						<template is="dom-if" if="{{showRaw}}">
 							<div class="pre">
-								<pre>[[_rawAction(item)]]</pre>
+								<pre-json json="[[_rawAction(item)]]"></pre-json>
 							</div>
 						</template>
 					</div>

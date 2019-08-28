@@ -1,0 +1,66 @@
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import '../utility/siren-entity-mixin.js';
+import '@polymer/iron-collapse/iron-collapse.js';
+import '../styles/shared-styles.js';
+import './pre-json.js';
+
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = /*html*/`<dom-module id="siren-rawentity">
+	<template strip-whitespace>
+		<style include="shared-styles">
+			.entity {
+			}
+		</style>
+		<div class="pre accordian">
+			<div class="accordian-header" on-click="_toggle">
+				<h3>
+					<span hidden$="{{!opened}}">-&nbsp;</span>
+					<span hidden$="{{opened}}">+&nbsp;</span>
+					<span>Raw</span>
+				</h3>
+			</div>
+			<iron-collapse  opened="{{opened}}">
+				<div class="flex-12">
+					<pre-json json="{{rawEntity}}"></pre-json>
+				</div>
+			</iron-collapse>
+		</div>
+	</template>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
+/* @mixes window.SirenEntityMixin */
+class SirenRawEntity extends window.SirenEntityMixin(PolymerElement) {
+	static get is() { return 'siren-rawentity'; }
+
+	static get properties() {
+		return {
+			opened: {
+				type: Boolean,
+				value: false
+			},
+			rawEntity: {
+				type: String,
+				value: '',
+				computed: '_computeRawEntity(entity)'
+			}
+		};
+	}
+
+	_toggle() {
+		this.opened = !this.opened;
+	}
+
+	_computeRawEntity(entity) {
+		try {
+			if (entity) {
+				return JSON.stringify(entity, null, 2);
+			}
+			return 'Loading...';
+		} catch (err) {
+			return err.message;
+		}
+	}
+}
+window.customElements.define(SirenRawEntity.is, SirenRawEntity);

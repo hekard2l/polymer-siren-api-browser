@@ -1,15 +1,15 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import '@polymer/paper-styles/paper-styles.js';
 import '../../styles/shared-styles.js';
+import '../pre-json.js';
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-object-properties">
 	<template strip-whitespace>
-		<style include="shared-styles paper-material-styles"></style>
+		<style include="shared-styles"></style>
 		<template is="dom-if" if="{{hasProperties}}">
 			<h2>Properties</h2>
 			<div class="pre">
-				<pre>{{properties}}</pre>
+				<pre-json json="{{properties}}"></pre-json>
 			</div>
 		</template>
 	</template>

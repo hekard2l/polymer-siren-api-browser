@@ -1,5 +1,4 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import '@polymer/paper-styles/paper-styles.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 import '@polymer/paper-toggle-button/paper-toggle-button.js';
 import '@polymer/paper-button/paper-button.js';
@@ -14,7 +13,7 @@ const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-subentity">
 	<template strip-whitespace>
-		<style include="shared-styles paper-material-styles">
+		<style include="shared-styles">
 			.entity {
 				background-color: #fff;
 				padding: 1em;

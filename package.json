@@ -29,7 +29,8 @@
     "@polymer/paper-spinner": "^3.0.0",
     "@polymer/paper-tabs": "^3.0.0",
     "@polymer/paper-toggle-button": "^3.0.0",
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/polymer": "^3.0.0",
+    "@polymer/prism-element": "^3.0.1"
   },
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.0.0",
