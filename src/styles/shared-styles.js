@@ -5,6 +5,9 @@ const $_documentContainer = document.createElement('template');
 $_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
 	<template strip-whitespace>
 		<style is="custom-style">
+		[hidden] {
+			display: none;
+		}
 		.indigo {
 			background-color: #f5f5f5;
 		}
@@ -99,6 +102,19 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
 		.basic-top-bottom-padding {
 			padding-top: 10px;
 			padding-bottom: 10px;
+		}
+		.accordian {
+			margin-bottom: .2em;
+			text-align: left;
+		}
+		.accordian-header {
+			padding: .2em;
+			padding-left: 1em;
+		}
+		.accordian-header:hover {
+			user-select: none;
+			cursor: pointer;
+			background-color: #ccc;
 		}
 </style>
 	</template>
