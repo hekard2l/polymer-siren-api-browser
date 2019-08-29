@@ -1,4 +1,5 @@
 import '@polymer/polymer/polymer-element.js';
+import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 import '@polymer/paper-styles/default-theme.js';
 import '@polymer/paper-styles/paper-styles.js';
 import '@polymer/paper-styles/color.js';
@@ -6,16 +7,13 @@ const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
 	<template strip-whitespace>
-		<style is="custom-style" include="paper-material-styles">
+		<style is="custom-style" include="paper-material-styles iron-positioning">
 		paper-button, paper-checkbox {
 			background: var(--default-secondary-color);
 			@apply --paper-font-button;
 		}
 		h2, h3, h4 {
 			@apply --paper-font-title;
-		}
-		[hidden] {
-			display: none;
 		}
 		.indigo {
 			background-color: #f5f5f5;
@@ -87,20 +85,6 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="shared-styles">
 			border-radius: 4px;
 			border: 1px solid #ccc;
 			color: #333;
-		}
-		.flex-parent {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		.flex-1 {
-			flex: 1;
-			padding-right: 1em;
-		}
-		.flex-2 {
-			flex: 2;
-		}
-		.flex-right {
-			display: inline-block;
 		}
 		.basic-left-padding {
 			padding-left: 10px
