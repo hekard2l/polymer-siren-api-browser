@@ -9,7 +9,9 @@ const $_documentContainer = document.createElement('template');
 $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-rawentity">
 	<template strip-whitespace>
 		<style include="shared-styles">
-			.entity {
+			:host {
+				width: 100%;
+				display: block;
 			}
 		</style>
 		<div class="pre accordian">
@@ -21,7 +23,7 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-rawentity">
 				</h3>
 			</div>
 			<iron-collapse  opened="{{opened}}">
-				<div class="flex-12">
+				<div>
 					<pre-json json="{{rawEntity}}"></pre-json>
 				</div>
 			</iron-collapse>
@@ -42,7 +44,7 @@ class SirenRawEntity extends window.SirenEntityMixin(PolymerElement) {
 			},
 			rawEntity: {
 				type: String,
-				value: '',
+				value: false,
 				computed: '_computeRawEntity(entity)'
 			}
 		};

@@ -1,4 +1,5 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-card/paper-card.js';
 import '@polymer/paper-button/paper-button.js';
@@ -8,14 +9,12 @@ const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = /*html*/`<dom-module id="siren-action">
 	<template strip-whitespace>
-		<style include="shared-styles">
+		<style is="custom-style" include="shared-styles">
 			:host {
 				display: block;
 			}
 
 			.form {
-				width: 500px;
-				max-width: 1000px;
 				padding: 1em;
 			}
 
