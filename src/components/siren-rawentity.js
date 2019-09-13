@@ -42,6 +42,24 @@ class SirenRawEntity extends window.SirenEntityMixin(PolymerElement) {
 				type: Boolean,
 				value: false
 			},
+			ignoredKeys: {
+				type: Array,
+				value: () => [
+					'_actionsByClass',
+					'_actionsByMethod',
+					'_actionsByName',
+					'_actionsByType',
+					'_entitiesByClass',
+					'_entitiesByRel',
+					'_entitiesByType',
+					'_fieldsByClass',
+					'_fieldsByName',
+					'_fieldsByType',
+					'_linksByClass',
+					'_linksByRel',
+					'_linksByType',
+				]
+			},
 			rawEntity: {
 				type: String,
 				value: false,
@@ -57,7 +75,8 @@ class SirenRawEntity extends window.SirenEntityMixin(PolymerElement) {
 	_computeRawEntity(entity) {
 		try {
 			if (entity) {
-				return JSON.stringify(entity, null, 2);
+				const replacer = (key, val) => this.ignoredKeys.includes(key) ? undefined : val;
+				return JSON.stringify(entity, replacer, 2);
 			}
 			return 'Loading...';
 		} catch (err) {

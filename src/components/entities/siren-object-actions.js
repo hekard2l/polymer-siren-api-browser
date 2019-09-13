@@ -77,6 +77,14 @@ class SirenObjectActions extends (PolymerElement) {
 				type: Boolean,
 				value: false,
 			},
+			ignoredKeys: {
+				type: Array,
+				value: () => [
+					'_fieldsByClass',
+					'_fieldsByName',
+					'_fieldsByType',
+				]
+			},
 			hasActions: {
 				type: Boolean,
 				value: false,
@@ -95,7 +103,8 @@ class SirenObjectActions extends (PolymerElement) {
 		this.actions = entity.actions || [];
 	}
 	_rawAction(item) {
-		return JSON.stringify(item, null, 2);
+		const replacer = (key, val) => this.ignoredKeys.includes(key) ? undefined : val;
+		return JSON.stringify(item, replacer, 2);
 	}
 	_toggleShowRaw() {
 		return this.showRaw = !this.showRaw;
